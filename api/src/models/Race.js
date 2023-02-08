@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
         defaultValue: "SantasLittleHelper",
       },
       height: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 0.50,
         get() {
@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         }
       },
       weight: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 20,
         get() {
@@ -39,7 +39,17 @@ module.exports = (sequelize) => {
   let nullAge = this.getDataValue('age');
   return nullAge ? nullAge + ' years' : null;
       }
-    }}, {
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    createdInDataBase: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    }
+  }, {
       timestamps: false
     });
   };

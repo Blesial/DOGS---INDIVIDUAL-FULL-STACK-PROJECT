@@ -15,34 +15,36 @@ const router = Router();
 
 
 router.get('/', async (req, res, next) => {
-let name = req.query.name;
+let {name} = req.query;
 let apiRaces;
 let dbRaces;
-// tengo q solucionar esto 
     if (name) {
-      apiRaces =  axios.get(` https://api.thedogapi.com/v1/breeds/search?q=${name}`);
-      dbRaces =  Race.findAll({
+      apiRaces = axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`);
+      dbRaces = Race.findAll({
         where: {
           name: {
-            [Op.iLike]: `%${name}%`
+            [Op.iLike]: '%' + name + '%'
           },
         },
         order: [
           ['name', 'ASC']
         ]
       });
+    
   } else {
-    apiRaces =  axios.get('https://api.thedogapi.com/v1/breeds?limit=10&page=0');
+    apiRaces =  axios.get('https://api.thedogapi.com/v1/breeds?limit=10&page=0'); //?limit=10&page=0
     dbRaces =  Race.findAll();
   }
-  Promise.all([apiRaces, dbRaces])
+
+  
+    Promise.all([apiRaces, dbRaces])
     .then((respuesta) => {
       const [api, db] = respuesta;
   let filteredApiRaces = api.data.map(race => { // PARA MOSTRAR LO QUE NOS INTERESA UNICAMENTE
     return {
       id: race.id,
       name: race.name,
-      image: race.image.url,
+      image: race.image ? race.image.url : race.image,
       weight: race.weight.imperial,
       temperaments: race.temperament
     }
@@ -55,8 +57,14 @@ let dbRaces;
     }
   })
   let arrayOfRaces = [...filteredApiRaces,...filteredDbRaces];
-  res.send(arrayOfRaces);
+  if (arrayOfRaces.length < 1) return res.status(404).send('Dog Race could not be found')
+  return res.status(200).send(arrayOfRaces);
     })
+  .catch(error => {
+    next(error);
+  }) 
+  
+
 })
     // if (!dbDogsRaces) {
     //   return res.status(404).send('That Dog Race doesnt exists')
@@ -72,12 +80,17 @@ let dbRaces;
 // Incluir los temperamentos asociados
 router.get('/:idRaza', async (req, res, next) => {
   const {idRaza} = req.params;
-  try {
+  if (idRaza.length > 5) {// es creado por mi 
     const race = await Race.findByPk(idRaza, {
-      include: Temperaments
+      // include: Temperaments
     });
     res.json(race)
-  } catch (err) {
+  } else { // es de la api 
+
+  }
+  try {
+    
+  } catch (err) { 
     next(err);
   }
 })
@@ -86,16 +99,17 @@ router.get('/:idRaza', async (req, res, next) => {
 // aca tmb tengo que incluirle los temperamentos. para que se suban a la base de datos ya con esa relacion. para q el get de arriba funcione
 router.post('/', async (req, res, next) => {
   // creo q tambien deberia recibir temperaments. para poder relacionarlo con el dog. y luego en el get de arriba incluir los temperamentos.
-    const {name, height, weight, age, temperamentid} = req.body;
+    const {name, height, weight, age, temperamentsArray} = req.body;
     try {
-      const newDog = await Race.create({
+      const newRace = await Race.create({
         name,
         height,
         weight,
         age: age ? age : null
-    })
-    // await newDog.setTemperaments([temperamentid])
-    res.status(201).send(newDog);
+    });
+      // const rdo = await newRace.setTemperaments([temperamentsArray])
+
+    res.status(201).send(newRace);
     } catch (err) {
       next(err)
     }

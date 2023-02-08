@@ -1,11 +1,13 @@
 import './App.css';
+import Races from './components/races';
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Dogs</h1>
+      <Races/>
     </div>
   );
 }
+
 
 export default App;
