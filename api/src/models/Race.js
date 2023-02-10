@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
     createdInDataBase: {
       type: DataTypes.BOOLEAN,

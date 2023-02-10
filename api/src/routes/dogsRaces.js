@@ -53,7 +53,7 @@ let dbRaces;
     return {
       id: race.id,
       name: race.name,
-      weight: race.weight
+      weight: race.weight,
     }
   })
   let arrayOfRaces = [...filteredApiRaces,...filteredDbRaces];

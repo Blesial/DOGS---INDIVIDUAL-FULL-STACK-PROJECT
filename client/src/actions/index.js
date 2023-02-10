@@ -1,10 +1,10 @@
-import {FETCH_RACE, ORDER_RACE, FILTER_RACE} from './types';
+import {FETCH_RACE, ORDER_RACE, FILTER_RACE, SEARCH_RACE} from './types';
 import axios from 'axios';
 // ACTIONS CREATORS
 // Aca estamos utilizando redux thunk. Por eso usamos el dispatch dentro de la action creator.
 // Necesitamos hacer uso de este middleware ya que nuestras peticiones al back siempre son asincrónicas,
 // por lo tanto, necesitamos ese "delay" para despachar nuestra action hasta que la data nos llegue.
-export const fetchRaces = () => async (dispatch, getState) => {
+export const fetchRaces = () => async (dispatch) => {
   try {
     const race = await axios.get('http://localhost:3001/api/dogs?limit=10&page=0')
     dispatch({
@@ -30,22 +30,29 @@ export const fetchRaces = () => async (dispatch, getState) => {
 //     dispatch(increment())
 //   }
 // }
-
-export function filterRaces (id) {
-
+export const searchRaces = (search) => async (dispatch) => {
+  try {
+    const race = await axios.get(`http://localhost:3001/api/dogs?name=${search}`)
+    dispatch({
+      type: SEARCH_RACE,
+      payload: race.data
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-export function searchRaces (name) {
-    
-}
-
-// These are the normal action creators you have seen so far.
-// The actions they return can be dispatched without any middleware.
-// However, they only express “facts” and not the “async flow”.
-
-export function orderCards (id) {
+export function orderRace (id) {
   return {
     type: ORDER_RACE,
     payload: id
   }
 }
+
+export function filterRaces (id) {
+
+}
+
+// These are the normal action creators you have seen so far.
+// The actions they return can be dispatched without any middleware.
+// However, they only express “facts” and not the “async flow”.

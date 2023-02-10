@@ -4,27 +4,47 @@
 // import { deleteCharacter } from "../redux/actions";
 // import { useState, useEffect } from "react";
 import React from "react";
+import { useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { fetchRaces } from "../actions";
+import Race from "./race";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 
 export default function Races () {
    const dispatch = useDispatch()
-   const races = useSelector(store => store)
-   let rsp = races.races.map(r => r.name)
-   console.log(rsp)
+   const store = useSelector(store => store)
+   useEffect(()=>{
+      dispatch(fetchRaces())
+   }, [dispatch]); // ver si genera problemas meter el dispatch ahi . soluciona un error que me tira react 
    return (
       <div>
-         Soy Races
-         <button onClick={() => dispatch(fetchRaces())}>Get Races</button>
-         {
-         
-         }
+         { store.race.length > 0 ? store.race.map((race) => {
+            return <Race key={race.id} name={race.name} image={race.image} temperaments={race.temperaments} weight={race.weight}/>}) :
+         store.races.map((race) => {
+         return <Race key={race.id} name={race.name} image={race.image} temperaments={race.temperaments} weight={race.weight}/>
+         })}
       </div>
    )
 }
+
+// }, LA IMAGE ME LLEGA ASI CUANDO APLICO EL SEARCH. 
+// "id": 1,
+// "name": "Affenpinscher",
+// "bred_for": "Small rodent hunting, lapdog",
+// "breed_group": "Toy",
+// "life_span": "10 - 12 years",
+// "temperament": "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
+// "origin": "Germany, France",
+// "reference_image_id": "BJa4kxc4X",
+// "image": {
+//    "id": "BJa4kxc4X",
+//    "width": 1600,
+//    "height": 1199,
+//    "url": "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"
+// }
+// },
 // function Example(props) {
 //    const [isFav, setIsFav] = useState (false);
 

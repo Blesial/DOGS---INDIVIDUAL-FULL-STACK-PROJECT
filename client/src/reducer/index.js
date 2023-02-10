@@ -1,9 +1,8 @@
-import { FETCH_RACE, ORDER_RACE, FILTER_RACE } from "../actions/types";
-import axios from "axios";
+import { FETCH_RACE, ORDER_RACE, FILTER_RACE, SEARCH_RACE } from "../actions/types";
 
 const initialState = {
     races: [],
-    race: {}
+    race: []
 };
 
 export default function rootReducer (state = initialState, action){ // es un destructuring de ACTION 
@@ -11,7 +10,24 @@ export default function rootReducer (state = initialState, action){ // es un des
         case FETCH_RACE:
             return {
                 ...state,
+                race: [], // esto es para cuando toquemos el boton del searchbar 'clean'. limpie el estado del search_race y renderize nuevamente todas las razas
                 races: action.payload
+            }
+        case SEARCH_RACE:
+            return {
+                ...state,
+                race: action.payload
+            }
+        case ORDER_RACE:
+         const orderAscendente = state.races.sort((a, b) => {
+            if (action.payload === 'Ascending') {  return a.id - b.id }
+        else {
+             return  b.id - a.id
+         }
+        });
+        return {
+                ...state,
+                races: orderAscendente
             }
         default: 
             return state
@@ -34,20 +50,7 @@ export default function rootReducer (state = initialState, action){ // es un des
         //         myFavorites: filteredChar
         //     }
         
-        // case ORDER_RACE:
-        // const orderAscendente = state.allCharacters.sort((a, b) => {
-          
-        //     if (payload === 'Ascendente') {  return a.id - b.id }
-        //     else {
-        //        return  b.id - a.id
-        //     }
-        // });
-           
-        //   return {
-        //         ...state,
-        //         myFavorites: orderAscendente
 
-        //     }
         // default:
         //     return {
         //         ...state
