@@ -1,4 +1,4 @@
-import {FETCH_RACE, ORDER_RACE, FILTER_RACE, SEARCH_RACE} from './types';
+import {FETCH_RACE, ORDER_RACE, SEARCH_RACE} from './types';
 import axios from 'axios';
 // ACTIONS CREATORS
 // Aca estamos utilizando redux thunk. Por eso usamos el dispatch dentro de la action creator.
@@ -42,10 +42,10 @@ export const searchRaces = (search) => async (dispatch) => {
   }
 }
 
-export function orderRace (id) {
+export function orderRace (order) {
   return {
     type: ORDER_RACE,
-    payload: id
+    payload: order
   }
 }
 

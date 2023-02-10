@@ -1,4 +1,4 @@
-import { FETCH_RACE, ORDER_RACE, FILTER_RACE, SEARCH_RACE } from "../actions/types";
+import { FETCH_RACE, ORDER_RACE, SEARCH_RACE } from "../actions/types";
 
 const initialState = {
     races: [],
@@ -16,23 +16,44 @@ export default function rootReducer (state = initialState, action){ // es un des
         case SEARCH_RACE:
             return {
                 ...state,
-                race: action.payload
+                race: action.payload // ACA RACE 
             }
         case ORDER_RACE:
-         const orderAscendente = state.races.sort((a, b) => {
-            if (action.payload === 'Ascending') {  return a.id - b.id }
-        else {
-             return  b.id - a.id
-         }
+            let orderedRaces = [...state.races]
+        orderedRaces = orderedRaces.sort((a, b) => {
+            if (a.name < b.name) {
+                return action.payload === 'Ascending' ? -1 : 1;
+            }
+            if (a.name > b.name) {
+                return action.payload === 'Ascending' ? 1 : -1;
+            }
+            return 0;
         });
+        console.log(orderedRaces)
+
         return {
                 ...state,
-                races: orderAscendente
+                race: orderedRaces
             }
         default: 
             return state
     }
 }
+
+// case 'ORDER':
+//     const orderAscendente = state.allCharacters.sort((a, b) => {
+      
+//         if (payload === 'Ascendente') {  return a.id - b.id }
+//         else {
+//            return  b.id - a.id
+//         }
+//     });
+       
+//       return {
+//             ...state,
+//             myFavorites: orderAscendente
+
+//         }
 
 
         // case ADD_RACE:

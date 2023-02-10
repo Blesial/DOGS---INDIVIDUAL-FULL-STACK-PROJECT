@@ -3,7 +3,6 @@ import React from "react";
 
 export default function Race (props) {
 
-  console.log(props)
     return (
         <div>
           <img alt="Dog" src={props.image}/>
