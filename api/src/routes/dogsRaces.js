@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const axios = require('axios');
-const {Race, Temperaments} = require('../db'); 
+const {Race, Temperament} = require('../db'); 
 const { Op } = require('sequelize');
 const db = require('../db');
 const router = Router();
@@ -33,7 +33,9 @@ let dbRaces;
     
   } else {
     apiRaces =  axios.get('https://api.thedogapi.com/v1/breeds?limit=10&page=0'); //?limit=10&page=0
-    dbRaces =  Race.findAll();
+    dbRaces =  Race.findAll({
+      include: Temperament
+    });
   }
 
   
@@ -63,14 +65,8 @@ let dbRaces;
   .catch(error => {
     next(error);
   }) 
-  
-
 })
-    // if (!dbDogsRaces) {
-    //   return res.status(404).send('That Dog Race doesnt exists')
-    // } else {
-    //   return res.send(dogs);
-    //         }
+
  
 
 
@@ -80,39 +76,53 @@ let dbRaces;
 // Incluir los temperamentos asociados
 router.get('/:idRaza', async (req, res, next) => {
   const {idRaza} = req.params;
-  if (idRaza.length > 5) {// es creado por mi 
-    const race = await Race.findByPk(idRaza, {
-      // include: Temperaments
-    });
-    res.json(race)
-  } else { // es de la api 
-
-  }
-  try {
-    
-  } catch (err) { 
+  let race;
+  try{
+    if (idRaza.length > 5) {// es creado por mi 
+      race = await Race.findByPk(idRaza, {
+       // include: Temperaments
+     });
+   } else { // es de la api 
+     const response = await axios.get('https://api.thedogapi.com/v1/breeds?limit=10&page=0')
+     race = response.data
+   }
+     res.json(race);
+  } catch (err) {
     next(err);
   }
+
 })
 
 
 // aca tmb tengo que incluirle los temperamentos. para que se suban a la base de datos ya con esa relacion. para q el get de arriba funcione
 router.post('/', async (req, res, next) => {
   // creo q tambien deberia recibir temperaments. para poder relacionarlo con el dog. y luego en el get de arriba incluir los temperamentos.
-    const {name, height, weight, age, temperamentsArray} = req.body;
+    const {name, height, weight, age, createdInDataBase, temperaments} = req.body;
     try {
       const newRace = await Race.create({
         name,
         height,
         weight,
-        age: age ? age : null
+        age: age ? age : null,
+        createdInDataBase
+        // ACA NO SE AGREGA EL TEMPERAMENTO PORQUE PARA ELLO HAY QUE HACER LA CONEXION. ACA NO VA. 
     });
-      // const rdo = await newRace.setTemperaments([temperamentsArray])
 
-    res.status(201).send(newRace);
+    let temperamentDb = await Temperament.findAll({
+      where: {
+        name: temperaments
+      }
+    })
+
+    newRace.addTemperaments(temperamentDb); // ver si funciona el set, sino usar el add. 
+
+    res.send('Race creation Successfull');
+
     } catch (err) {
       next(err)
     }
 })
 
 module.exports = router;
+
+// ver de hacer validaciones tambien aca en el back. no solo en el front 
