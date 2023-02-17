@@ -34,8 +34,8 @@ const { Race, Temperament } = sequelize.models;
 
 // Aca vendrian las relaciones
 
-Race.belongsToMany(Temperament, {through: "RaceTemperaments"});
-Temperament.belongsToMany(Race, {through: "RaceTemperaments"});
+Race.belongsToMany(Temperament, {through: 'Temp_Race'});
+Temperament.belongsToMany(Race, {through: 'Temp_Race'});
 
 
 module.exports = {

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
+body {
+ background-repeat: no-repeat;
+ width: '100vw';
+ height: '100vh';
+  margin: 0;
+  padding: 0;
+  background-image: url('../assets/dogs.png.jpeg');
+  background-size: cover;
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  font-family: 'Yusei Magic', sans-serif;
+  height: 95vh;
+} 
+
+ /* ESTO PA LAS CARDS:  */
+/* .doggy{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  padding-top: 1px;
+  padding-left: 35%;
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+} */
+
+
+
+.btn, .btn[disabled="false"]{
+  font-family: 'Yusei Magic', sans-serif;
+  min-width: 100px;
+  appearance: none;
+  user-select: none;
+  cursor: pointer;
+  color: #2c3e50;
+  line-height: 1em;
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: white;
+  background-color: rgba(255,255,255, 0);
+  box-shadow: 0 0 0 0 #2c3e50 inset, 0.3em 0.2em 0 0 white;
+  border: 0.2em solid #fff;
+  padding: 0.8em;
+  text-align: center;
+  transition: 0.25s box-shadow, 0.25s transform;
+  font-size: 18px;
+}
+
+
+.btn[disabled], .btn:hover {
+  box-shadow: 0 4em 0 0 black inset, 0em 0em 0 0 black;
+  transform: translate(0.3em, 0.2em);
+  color: black;
+}
+

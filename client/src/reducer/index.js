@@ -1,78 +1,67 @@
-import { FETCH_RACE, ORDER_RACE, SEARCH_RACE } from "../actions/types";
+import { FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, POST_RACE, FILTER_RACE, SEARCH_RACE } from "../actions/types";
 
 const initialState = {
     races: [],
-    race: []
+    allRacesFixed: [],
+    temperaments: [],
+    detail: []
 };
 
-export default function rootReducer (state = initialState, action){ // es un destructuring de ACTION 
+export default function rootReducer (state = initialState, action){
     switch (action.type) {
         case FETCH_RACE:
             return {
-                ...state,
-                race: [], // esto es para cuando toquemos el boton del searchbar 'clean'. limpie el estado del search_race y renderize nuevamente todas las razas
-                races: action.payload
+                ...state, // siempre se hace esto PORQUE HAY Q CREAR UNA COPIA DEL ESTADO ANTERIOR Y MODIFICAR ESA COPIA. NUNCA SE MODIFICA EL ESTADO ANTERIOR. SIEMPRE ES ALGO NUEVO LO Q SE TIENE QUE CARGAR EN EL ESTADO. SE PISAN LOS ESTADOS
+                races: action.payload,
+                allRacesFixed: action.payload
             }
         case SEARCH_RACE:
             return {
                 ...state,
-                race: action.payload // ACA RACE 
+                races: action.payload 
             }
         case ORDER_RACE:
-            let orderedRaces = [...state.races]
+            let orderedRaces = state.races
         orderedRaces = orderedRaces.sort((a, b) => {
             if (a.name < b.name) {
-                return action.payload === 'Ascending' ? -1 : 1;
+                return action.payload === 'Ascending' ? -1 : 1; // va comparando dos valores 
             }
             if (a.name > b.name) {
                 return action.payload === 'Ascending' ? 1 : -1;
             }
-            return 0;
+  
+            return 0; // si son iguales que quede como esta 
         });
-        console.log(orderedRaces)
 
         return {
                 ...state,
-                race: orderedRaces
+                races: orderedRaces
             }
+            case FILTER_BY_ORIGIN:
+                const allRaces = state.allRacesFixed;
+            // dejamos siempre fijo el allraces. y trabajamos sobre el. pero a la hora del return. modificamos el races unicamente
+                const raceFilterFrom = action.payload === 'all' ? allRaces : allRaces.filter(e => action.payload === 'db' ? e.createdInDataBase : !e.createdInDataBase)
+                    return {
+                        ...state,
+                        races: raceFilterFrom
+                    }
+            case FILTER_RACE:
+
+            return {
+                ...state,
+                detail: action.payload
+            }
+
+            case GET_TEMPERAMENTS: 
+                    return {
+                        ...state,
+                        temperaments: action.payload
+                    }
+            case POST_RACE:
+                return {
+                    ...state
+                }
         default: 
             return state
     }
 }
-
-// case 'ORDER':
-//     const orderAscendente = state.allCharacters.sort((a, b) => {
-      
-//         if (payload === 'Ascendente') {  return a.id - b.id }
-//         else {
-//            return  b.id - a.id
-//         }
-//     });
-       
-//       return {
-//             ...state,
-//             myFavorites: orderAscendente
-
-//         }
-
-
-        // case ADD_RACE:
-        //     return {
-        //         ...state,
-        //         myFavorites: [...state.allCharacters, payload],
-        //         allCharacters: [...state.allCharacters, payload]
-                
-        //     }
-
-                // case FILTER_RACE:
-        // const filteredChar = state.allCharacters.filter(e => e.gender === payload)
-        //     return {
-        //         ...state,
-        //         myFavorites: filteredChar
-        //     }
-        
-
-        // default:
-        //     return {
-        //         ...state
-        //     }

@@ -1,7 +1,14 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
+import { ThunkMiddleware } from 'redux-thunk';
 import rootReducer from '../reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
+// proobar si asi no tira mas errores de process:
+//  const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+//  const store = createStore(rootReducer, composeEnhancer(applyMiddleware(thunkMiddleware)))
+////
+///
 
 
 //POR SI VUELVE A PASAR EL ERROR DE PROCESS

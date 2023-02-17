@@ -1,15 +1,24 @@
 import React from "react";
+import styles from './race.module.css';
 
 
 export default function Race (props) {
 
+  console.log(props.temperaments)
     return (
-        <div>
-          <img alt="Dog" src={props.image}/>
-          <h1>{props.name}</h1>
-          <h2>Temperaments: {props.temperaments}</h2>
-          <h3>Weight: {props.weight}</h3>
-          <br/>
+      
+        <div className={styles.container}>
+        <div className={styles.card}>
+          <img className={styles.img} alt="Dog" src={props.image}/>
+          <div className={styles.intro}>
+          <h1 className={styles.h1}>{props.name}<br></br> Weight: {props.weight}</h1>
+          <p className={styles.p}><span>Temperaments: {props.temperaments}</span></p>
+          </div>
+          </div>
         </div>
     )
 }
+
+
+
+

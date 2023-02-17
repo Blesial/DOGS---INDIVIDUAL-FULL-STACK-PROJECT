@@ -1,4 +1,4 @@
-import {FETCH_RACE, ORDER_RACE, SEARCH_RACE} from './types';
+import {FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, SEARCH_RACE, POST_RACE, FILTER_RACE} from './types';
 import axios from 'axios';
 // ACTIONS CREATORS
 // Aca estamos utilizando redux thunk. Por eso usamos el dispatch dentro de la action creator.
@@ -6,7 +6,7 @@ import axios from 'axios';
 // por lo tanto, necesitamos ese "delay" para despachar nuestra action hasta que la data nos llegue.
 export const fetchRaces = () => async (dispatch) => {
   try {
-    const race = await axios.get('http://localhost:3001/api/dogs?limit=10&page=0')
+    const race = await axios.get('http://localhost:3001/api/dogs')
     dispatch({
       type: FETCH_RACE,
       payload: race.data
@@ -16,20 +16,6 @@ export const fetchRaces = () => async (dispatch) => {
   }
 }
 
-// IMPORTANTE!!! :
-// An action creator that returns a function to perform conditional dispatch:
-
-// function incrementIfOdd() {
-//   return (dispatch, getState) => {
-//     const { counter } = getState()
-
-//     if (counter % 2 === 0) {
-//       return
-//     }
-
-//     dispatch(increment())
-//   }
-// }
 export const searchRaces = (search) => async (dispatch) => {
   try {
     const race = await axios.get(`http://localhost:3001/api/dogs?name=${search}`)
@@ -49,10 +35,49 @@ export function orderRace (order) {
   }
 }
 
-export function filterRaces (id) {
-
+export const filterRaces = (id) => async (dispatch) => {
+  try {
+    const detailIdRace = await axios.get(`http://localhost:3001/api/dogs/${id}`);
+    
+    dispatch({
+      type: FILTER_RACE,
+      payload: detailIdRace.data
+    })
+  } catch (error)  {
+    console.log(error)
+  }
 }
 
+export function filterRacesByOrigin (payload) {
+  return {
+    type: FILTER_BY_ORIGIN,
+    payload
+  }
+}
+
+export const getTemperaments = () => async (dispatch) => {
+  try {
+    const temperamentsDb = await axios.get('http://localhost:3001/api/temperaments')
+    dispatch({
+      type: GET_TEMPERAMENTS,
+      payload: temperamentsDb.data
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const postRace = (payload) => async (dispatch) => {
+  try {
+    const postRace = await axios.post('http://localhost:3001/api/dogs', payload)
+    dispatch({
+      type: POST_RACE,
+      payload: postRace.data
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
 // These are the normal action creators you have seen so far.
 // The actions they return can be dispatched without any middleware.
 // However, they only express “facts” and not the “async flow”.

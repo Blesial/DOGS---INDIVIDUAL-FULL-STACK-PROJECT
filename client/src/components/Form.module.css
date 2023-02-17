@@ -1,0 +1,82 @@
+.body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 10%;
+    background: url('../assets/dogsss.jpg') ;
+    background-size: cover;
+    height: 100vh;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    /* background: #dff0ff; */
+}
+
+.container{
+    margin-bottom: 25%;
+    margin-top: 25%;
+    background: transparent;
+    visibility: visible;
+    opacity: 70%;
+    /* height: 30vh; */
+    width: clamp(45rem, 40vw, 110rem);
+    background-size: cover;
+    background-position: center;
+    border-radius: 3px;
+    box-shadow: 0 25px 50px -20px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ .form{
+    backdrop-filter: blur(3px);
+    border: 1px solid white;
+    height: clamp(5%, 10vh, 20%);
+    border-radius: 10px;
+} 
+
+.h1{
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    margin: 1rem;
+}
+
+.field{
+    position: relative;
+}
+
+input{
+    padding: 1rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid white ;
+    outline: none;
+    color: white;
+}
+
+::placeholder{
+    opacity: 0;
+}
+
+.label{
+    left: 2.5rem;
+    top: 40%;
+    font-size: 2rem;
+    pointer-events: none;
+}
+
+.btn{
+    display: block;
+    border: 2px, solid white;
+    margin-left: 3rem auto;
+    padding: 1rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    text-align: center;
+    text-decoration: none;
+    
+}

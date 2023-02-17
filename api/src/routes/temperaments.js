@@ -33,6 +33,7 @@ finalTemperamentsArray.forEach(e => { // esto hace que guarde en la base de dato
 })
 
 const temperamentsFromDb = await Temperament.findAll(); // para traerlos desde la base de datos. 
+
 res.send(temperamentsFromDb)
 
 } catch (err) {

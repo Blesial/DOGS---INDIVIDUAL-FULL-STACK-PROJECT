@@ -1,53 +1,36 @@
-import './App.css';
-import OrderRaces from './components/orderRaces';
-import Races from './components/races';
+import Home from './components/Home';
 import SearchBar from './components/searchBar';
-import {Route, Switch, Link} from 'react-router-dom'
-import AddRace from './components/addRace';
+import {Route, Switch} from 'react-router-dom'
+import Form from './components/Form';
+import Landing from './components/Landing';
+import Detail from './components/Detail';
+import styles from './App.module.css';
 // Switch es para cargar el contenido dinamico
 
 function App() {
   return (
-<>
-<nav>
-</nav>
+<div className={styles.App}>
       <Switch>
       <Route path='/add'>
-        <AddRace/>
+        <Form/>
+      </Route>
+      <Route path='/home/:id' >
+      <Detail/>
       </Route>
       <Route path='/home'>
         <SearchBar/>
-      <OrderRaces/>
-      <Races/>
+      <Home/>
       </Route>
-        <Route path='/' exact>
-        <button> <Link to='/home'><b>Enter App</b></Link> </button> 
+        <Route path='/'>
+          <Landing/>
+        </Route>
+        <Route path='*'>
+      404 NOT FOUND 
         </Route>
       </Switch>
-    </>
+      </div>
+   
   );
 } 
 
-// return (
- 
-
-//   <div className='App' style={{ padding: '25px' }}>  
-// <div>
-// {location.pathname !== '/' && <Nav onSearch={onSearch} onRandom={onRandom}
-//    style={{
-//     display:'flex',
-//     alignContent: 'end'
-//   }} 
-//   />}
-// </div>
-
-//   <Routes>
-//     <Route path='/' element={<Form login={login}/>}/>
-//     <Route path='/home' element= {<Cards personajes={personajes} onClose={onClose} />}/>
-//     <Route path='/favorites' element={<Favorites/>}/>
-//     <Route path='/detail/:detailId' element={<Detail/>} />
-//     <Route path='/about' element={<About/>} />
-//   </Routes>
-
-//   </div>
 export default App;

@@ -7,30 +7,24 @@ export default function SearchBar () {
     const dispatch = useDispatch();
     // const [temperamento, setTemperamento] = useState();
 
-    // si queremos tener un solo estado que tenga dentro todos los datos de todos los formularios que quieras:
-    // 1- inicializar el use state ({}) con objeto vacio.
-    // 2- dsp hacer un onChange de la sig forma: Y LISTO.
-    // const onChange = (e) => {
-    //  setSearch({
-    //     ...search,
-    //      [e.target.name]: e.target.value
-   // })
-    //})
+
+// LA LOGICA EN ESTE CASO ESTA HECHA EN EL BACK END - (SEARCH BY NAME)
 
     function handleSubmit (e) {
         e.preventDefault(); // evita que se renderize la pag una vez enviado el submit 
         dispatch(searchRaces(search));
+        setSearch('')
     }   
     function handleClick (e) {
         dispatch(fetchRaces())
+
     }
 
     return (
         // Formulario Controlado: Que los elementos del formulario esten gestionados por el estado del componente
-        <div> 
+        <div > 
             <form onSubmit={handleSubmit}>
-                {/* <label htmlFor="nombre">Race: </label> */}
-                <input type='text' onChange={(e)=> {setSearch(e.target.value)}} value={search}></input>
+                <input type='text' placeholder="Search..." onChange={(e)=> {setSearch(e.target.value)}} value={search}></input>
                 <input type='submit' value='Search'></input>
             </form>
             <button onClick={handleClick}>Clean</button>
