@@ -1,5 +1,4 @@
 import Home from './components/Home';
-import SearchBar from './components/searchBar';
 import {Route, Switch} from 'react-router-dom'
 import Form from './components/Form';
 import Landing from './components/Landing';
@@ -18,10 +17,9 @@ function App() {
       <Detail/>
       </Route>
       <Route path='/home'>
-        <SearchBar/>
       <Home/>
       </Route>
-        <Route path='/'>
+        <Route exact path='/'>
           <Landing/>
         </Route>
         <Route path='*'>

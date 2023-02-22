@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
 
 body {
+
  background-repeat: no-repeat;
- width: '100vw';
- height: '100vh';
+ width: 100vw;
+ height: 100vh;
   margin: 0;
   padding: 0;
   background-image: url('../assets/dogs.png.jpeg');
@@ -13,7 +14,9 @@ body {
   font-size: 40px;
   font-family: 'Yusei Magic', sans-serif;
   height: 95vh;
-} 
+}   
+
+
 
  /* ESTO PA LAS CARDS:  */
 /* .doggy{

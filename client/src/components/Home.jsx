@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { fetchRaces } from "../actions";
+import { fetchRaces, getTemperaments, orderWeight } from "../actions";
 import Race from "./race";
 import {Link} from 'react-router-dom'
 import Paginado from "./paginado";
@@ -11,6 +11,7 @@ import { filterRacesByOrigin } from "../actions";
 import { orderRace } from "../actions";
 import dog from '/Users/blesial/Desktop/PI-Dogs-main/client/src/dog.png'
 import styles from './Home.module.css';
+import SearchBar from "./searchBar";
 
 
 export default function Home () {
@@ -33,6 +34,7 @@ export default function Home () {
 
    useEffect(()=>{ // corre cuando el componente se monta, o cuando cambia algun estado/variable que se indique en el array de dependencias. 
       dispatch(fetchRaces())
+      dispatch(getTemperaments())
  
    }, [dispatch]); // ver si genera problemas meter el dispatch ahi . soluciona un error que me tira react 
    // se lo llama array de dependencias. Si no ponemos el array de dependencias se monta y renderiza en loop 
@@ -47,9 +49,22 @@ export default function Home () {
       setOrder(e.target.value); // esto es para que vuelva a renderizar el componente. sino no funcionaria el set current page
   }
 
+  const handleWeight = (e) => {
+      dispatch(orderWeight(e.target.value))
+      setCurrentPage(1);
+      setOrder(e.target.value)
+
+  }
+
    return (
       <div>
+         <SearchBar/>
                  <div>
+                 <button className={styles.button}><Link style={{
+                padding: '0 10px',
+                textDecoration:'None',
+                color: 'white',
+            }} to='/add'>Create Race</Link></button>
             <hr></hr>
  <p>Select Order :</p>
 <label 
@@ -83,7 +98,7 @@ onChange={handleSort}
 <label htmlFor="Weight" >
     Weight
 </label>
-<input 
+<input onChange={handleWeight}
 type='radio'
 id="Weight"
 value='Weight'
@@ -98,7 +113,9 @@ name="order"
             </select> 
             
             <select>        
-            <option value='temperament'>Temperaments</option> 
+            {store.races.map(e => {
+               <option>{e.temperaments}</option>
+            })}
             </select>
          <div>
       <br></br>
@@ -106,11 +123,6 @@ name="order"
                   racesStore={store.races.length}
                   paginado={paginado}
          />
-         <button className={styles.button}><Link style={{
-                padding: '0 10px',
-                textDecoration:'None',
-                color: 'white',
-            }} to='/add'>Create Race</Link></button>
          </div>
          { 
          currentRaces.map((race) => {

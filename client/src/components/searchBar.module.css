@@ -1,0 +1,31 @@
+.search{
+  background-color: black;
+  display: flex;
+  font-weight: bolder;
+  height: 8vh;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQwjG444l7xRM8P4pRxMSu09QBj7D_xrSPXg&usqp=CAU');
+
+}
+
+.button {
+    margin-left: 2%;
+    margin-top: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-image: linear-gradient(to top, black 0%, lightblue 100%);
+    background-clip: padding-box;
+    box-shadow: 0px 0px 0px 3px lightblue;
+    min-height: 30px;
+    padding: 0 13px 0 13px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all .5s ease;
+    color: white;
+    font-size: 10px;
+  }

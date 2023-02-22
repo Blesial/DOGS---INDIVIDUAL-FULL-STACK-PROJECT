@@ -102,15 +102,16 @@ export default function Form () {
     return (
         <body className={styles.body}>
             <div className={styles.container}>
-                        <Link  to='/home'><button className={styles.btn}>Cancel</button></Link>
+                        <Link  to='/home'><button className={styles.btn }>Cancel</button></Link>
          <form onSubmit={handleSubmit}>
         <h1 className={styles.h1}>CREATE YOUR OWN RAZE:  </h1>
-          <div className={styles.form}>
-            <div className={styles.field}>
+          <div className={styles.field}>
+            <div className={styles.form}>
             <label className={styles.label} htmlFor="image">Url: </label>
             <input onChange={handleChange} name="image" type='text  ' value={race.image}/>
             </div>  
-            <br></br>
+            <br>
+            </br>
             <div className={styles.form}>
             <label className={styles.label} htmlFor="name">Nombre: </label>
             <input onChange={handleChange} name="name" type='text' value={race.name}/>
@@ -150,8 +151,8 @@ export default function Form () {
           <span>{errors.temperaments}</span>
           <input type='submit'/>
           </div>
-        </form>
-          <ul> Added temperaments until now:
+          <div className={styles.temperament}>
+          Added temperaments until now:
             {
                 race.temperaments.map(temp => {
                     return (
@@ -159,13 +160,14 @@ export default function Form () {
                             <br></br>
                     <button onClick={() => handleDelete(temp)}>x</button>
                         <p>{temp}</p>
+                
                         </div>
                     )
                 })
             }
-            </ul>
-            <br></br>
-            <br></br>
+            </div>
+        </form>
+        
             </div>
         </body>
     ) 

@@ -2,7 +2,7 @@
     height: 400px;
     width: 350px;
     border-radius: 3px;
-    transition: 5s;
+    transition: 2s;
   }
 
   
@@ -15,8 +15,9 @@
     height: 100vh;
     height: 400px;
     margin: 50px;
-    box-shadow: 5px 5px 20px black;
+    box-shadow: 12px 12px 20px black;
     overflow: hidden;
+    
 }
 
 .intro{
@@ -70,7 +71,7 @@ span{
 .card:hover .p{
     opacity: 1;
     visibility: visible;
-    color: darkred;
+    color: white;
 }
 
 .card:hover img{

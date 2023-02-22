@@ -1,0 +1,68 @@
+.button_top {
+  background: #FBCA1F;
+  font-family: inherit;
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+ }
+ 
+
+ 
+
+
+.button_top:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;}
+
+.button_top:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;}
+
+
+
+
+
+
+.card .img {
+    width: 5.3em;
+    height: 5.3em;
+    background: white;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 1.7em;
+    box-shadow: 12px 12px 20px black;
+    overflow: hidden;
+  }
+  .card {
+    margin-left: 30%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    max-width: 35%;
+    transition: 1s ease-in-out;
+    clip-path: polygon(30px 0%, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0% 30px);
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display: table;
+    align-content: center;
+    
+    background: url('https://cdn3.vectorstock.com/i/1000x1000/08/92/gold-vintage-greeting-card-on-a-black-background-vector-23400892.jpg') no-repeat 0% 1%;
+   /* background: url('https://cdn2.vectorstock.com/i/1000x1000/08/86/gold-vintage-greeting-card-on-a-black-background-vector-23400886.jpg') no-repeat 102%; */
+}
+
+
+/* https://img.freepik.com/premium-photo/golden-retriever-puppy-is-sitting-white-background-staring-something_128282-281.jpg */
+
+  
+  .info {
+    font-weight: bolder;
+    color: cornsilk;
+    display: block;
+    text-align: center;
+    padding-top: 1 em;
+    font-size: 0.5em;
+
+  }
+

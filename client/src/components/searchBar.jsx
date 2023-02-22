@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchRaces, searchRaces } from "../actions";
+import styles from './searchBar.module.css';
 
 export default function SearchBar () {
     const [search, setSearch] = useState('');
@@ -22,12 +23,12 @@ export default function SearchBar () {
 
     return (
         // Formulario Controlado: Que los elementos del formulario esten gestionados por el estado del componente
-        <div > 
+        <div className={styles.search}> 
             <form onSubmit={handleSubmit}>
                 <input type='text' placeholder="Search..." onChange={(e)=> {setSearch(e.target.value)}} value={search}></input>
                 <input type='submit' value='Search'></input>
             </form>
-            <button onClick={handleClick}>Clean</button>
+            <button className={styles.button} onClick={handleClick}>Clean</button>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import {FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, SEARCH_RACE, POST_RACE, FILTER_RACE} from './types';
+import {FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, ORDER_WEIGHT, SEARCH_RACE, POST_RACE, FILTER_RACE, FILTER_BY_TEMPERAMENTS} from './types';
 import axios from 'axios';
 // ACTIONS CREATORS
 // Aca estamos utilizando redux thunk. Por eso usamos el dispatch dentro de la action creator.
@@ -34,6 +34,12 @@ export function orderRace (order) {
     payload: order
   }
 }
+export function orderWeight (order) {
+  return {
+    type: ORDER_WEIGHT,
+    payload: order
+  }
+}
 
 export const filterRaces = (id) => async (dispatch) => {
   try {
@@ -51,6 +57,13 @@ export const filterRaces = (id) => async (dispatch) => {
 export function filterRacesByOrigin (payload) {
   return {
     type: FILTER_BY_ORIGIN,
+    payload
+  }
+}
+
+export function filterByTemperaments (payload) {
+  return {
+    type: FILTER_BY_TEMPERAMENTS,
     payload
   }
 }

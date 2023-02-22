@@ -5,11 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import store from './store';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom'; // ahora app tiene la capacidad de definir rutas. 
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.StrictMode> 
     <Provider store={store}>
     <BrowserRouter>
     <App />

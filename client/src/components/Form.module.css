@@ -1,5 +1,4 @@
 .body {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-size: 10%;
@@ -12,27 +11,37 @@
     /* background: #dff0ff; */
 }
 
+.temperament{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1px;
+    font-size: 300%;
+
+}
 .container{
-    margin-bottom: 25%;
-    margin-top: 25%;
+
+    backdrop-filter: blur(20px);
+    margin-bottom: 22%;
+    margin-top: 24%;
     background: transparent;
     visibility: visible;
     opacity: 70%;
-    /* height: 30vh; */
     width: clamp(45rem, 40vw, 110rem);
     background-size: cover;
     background-position: center;
-    border-radius: 3px;
+    border-radius: 10px;
     box-shadow: 0 25px 50px -20px black;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    
 }
 
  .form{
-    backdrop-filter: blur(3px);
-    border: 1px solid white;
-    height: clamp(5%, 10vh, 20%);
+    /* border: 1px solid white; SI QUIERO METER RECUADRO  */ 
     border-radius: 10px;
 } 
 
@@ -70,7 +79,6 @@ input{
 }
 
 .btn{
-    display: block;
     border: 2px, solid white;
     margin-left: 3rem auto;
     padding: 1rem;
@@ -78,5 +86,4 @@ input{
     border-radius: 2rem;
     text-align: center;
     text-decoration: none;
-    
 }

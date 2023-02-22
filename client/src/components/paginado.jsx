@@ -9,7 +9,7 @@ export default function Paginado ({racePerPage, racesStore, paginado}) {
     }
 
     return (
-        <nav>
+        <nav className={styles.nav}>
            
                 {pagesNumber && 
                 pagesNumber.map(number => (

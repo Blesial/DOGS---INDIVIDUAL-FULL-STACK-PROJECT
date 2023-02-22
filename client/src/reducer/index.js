@@ -1,4 +1,4 @@
-import { FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, POST_RACE, FILTER_RACE, SEARCH_RACE } from "../actions/types";
+import { FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, POST_RACE, FILTER_RACE, SEARCH_RACE, ORDER_WEIGHT, FILTER_BY_TEMPERAMENTS} from "../actions/types";
 
 const initialState = {
     races: [],
@@ -19,6 +19,17 @@ export default function rootReducer (state = initialState, action){
             return {
                 ...state,
                 races: action.payload 
+            }
+        case ORDER_WEIGHT:
+            let weightedRaces = state.races
+            // weightedRaces = weightedRaces.map(e => e.weight.toString()[0]);
+            const orderWeight = weightedRaces.sort((a, b) => {
+
+            return a.weight.toString().split('-')[0].includes('up') ? a.weight.toString().split('-')[0] - b.weight.toString().split('-')[0] : b.weight.toString().split('-')[0] - a.weight.toString().split('-')[0]
+            })        
+                 return {
+                ...state,
+                races: orderWeight
             }
         case ORDER_RACE:
             let orderedRaces = state.races
@@ -45,6 +56,14 @@ export default function rootReducer (state = initialState, action){
                         ...state,
                         races: raceFilterFrom
                     }
+            
+            case FILTER_BY_TEMPERAMENTS:
+                const all = state.allRacesFixed;
+                
+                return {
+                    ...state,
+                     
+                }
             case FILTER_RACE:
 
             return {

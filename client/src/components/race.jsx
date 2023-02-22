@@ -4,7 +4,6 @@ import styles from './race.module.css';
 
 export default function Race (props) {
 
-  console.log(props.temperaments)
     return (
       
         <div className={styles.container}>

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { filterRaces } from "../actions";
+import styles from './Detail.module.css';
 
 export default function Detail () {
 const dispatch = useDispatch();
@@ -18,17 +19,20 @@ const race = useSelector(store => store.detail) // ver como llega la info a deta
 // race.temperaments = race.temperaments.map(temp => temp);
 console.log(race)
 return (
-   <div> 
+  
+   <div className={styles.card}> 
       
-       <Link to='/home'><button>Return Home</button></Link>
      {race.length > 0 ?
-      <div>
-        <img src={race[0].image? race[0].image : 'https://i.pinimg.com/736x/99/b9/8d/99b98dc7b18311a1b464602342a245e8.jpg'}></img>
+     <div>
+        <img className={styles.img} src={race[0].image? race[0].image : 'https://i.pinimg.com/736x/99/b9/8d/99b98dc7b18311a1b464602342a245e8.jpg'}></img>
+        <br></br>
+        <div className={styles.info}>
         <h1>Name: {race[0].name}</h1>
         <h2>Height: {race[0].height}</h2>
         <h2>Weight: {race[0].weight}</h2>
         <h2>Life Span: {race[0].age}</h2>
         <h2>Temperaments: {race[0].temperaments}</h2>
+        </div>
         </div>
       :     <div>
       <img src='https://i.pinimg.com/736x/99/b9/8d/99b98dc7b18311a1b464602342a245e8.jpg' alt="Wof!"></img>
@@ -38,6 +42,8 @@ return (
       <h2>Life Span: {race.age}</h2>
       <h2>Temperaments: {race.temperaments}</h2>
       </div>}
+      <Link to='/home'><button className={styles.button_top}>Return Home</button></Link>
+
    </div>
         )
 }
