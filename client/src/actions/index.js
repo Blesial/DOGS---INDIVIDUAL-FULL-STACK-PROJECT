@@ -91,6 +91,11 @@ export const postRace = (payload) => async (dispatch) => {
     console.log(error);
   }
 }
-// These are the normal action creators you have seen so far.
-// The actions they return can be dispatched without any middleware.
-// However, they only express “facts” and not the “async flow”.
+
+// export const postCreateDog = (payload) => {
+//   return async (dispatch) => {
+//       const res = await axios.post('http://localhost:3004/dogs',payload);
+//       console.log(res);
+//       return res;
+//     }
+// };

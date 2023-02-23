@@ -32,9 +32,17 @@
   }
 
 .body{
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+
+}
+
+.container{
+  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQwjG444l7xRM8P4pRxMSu09QBj7D_xrSPXg&usqp=CAU');
+
 }
 

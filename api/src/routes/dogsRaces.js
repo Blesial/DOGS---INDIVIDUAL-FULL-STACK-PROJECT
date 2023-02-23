@@ -4,42 +4,16 @@ const {Race, Temperament} = require('../db');
 const { Op } = require('sequelize');
 const db = require('../db');
 const router = Router();
+require('dotenv').config();
+const {DOG_API_KEY} = process.env; 
 
-// Ruta de detalle de raza de perro: debe contener
-
-// [ ] Los campos mostrados en la ruta principal para cada raza (imagen, nombre y temperamento) arriba de esto me dice q tmb tiene q ir EL PESO
-// PREGUNTAR
-// [ ] Altura
-// [ ] Peso
-// [ ] Años de vida
-
-// Required eager loading​
-
-// When eager loading, we can force the query to return only records which have an associated model, effectively converting the query from the default OUTER JOIN to an INNER JOIN. This is done with the required: true option, as follows:
-
-// User.findAll({
-//   include: {
-//     model: Task,
-//     required: true
-//   }
-// });
-
-// If you don't want anything from the junction table, you can explicitly provide an empty array to the attributes option inside the through option of the include option, and in this case nothing will be fetched and the extra property will not even be created:
-
-// Foo.findOne({
-//   include: {
-//     model: Bar,
-//     through: {
-//       attributes: []
-//     }
-//   }
-// });
+const apiLink = `https://api.thedogapi.com/v1/breeds?api_key=${DOG_API_KEY}`
 
 
 router.get('/', async (req, res, next) => {
 let {name} = req.query;
 let dbRaces;
-let apiRaces = await axios.get('https://api.thedogapi.com/v1/breeds');
+let apiRaces = await axios.get(apiLink);
 
     if (name) {
 
@@ -103,18 +77,8 @@ let apiRaces = await axios.get('https://api.thedogapi.com/v1/breeds');
   if (arrayOfRaces.length < 1) return res.status(404).send('Dog Race could not be found')
   return res.status(200).send(arrayOfRaces);
     })
-  // .catch(error => {
-  //   next(error);
-  // }) 
-// })
-
- 
 
 
-// [ ] GET /dogs/{idRaza}:
-// Obtener el detalle de una raza de perro en particular
-// Debe traer solo los datos pedidos en la ruta de detalle de raza de perro
-// Incluir los temperamentos asociados
 router.get('/:id', async (req, res, next) => {
   try {
     const {id} = req.params;
@@ -134,7 +98,7 @@ router.get('/:id', async (req, res, next) => {
      return res.send(race.dataValues);
 
    } else { // es de la api 
-     const response = await axios.get('https://api.thedogapi.com/v1/breeds')
+     const response = await axios.get(apiLink)
      let unique = response.data.filter(elem => elem.id === Number(id));
      let rsp = unique.map(elem => {
       return {
@@ -156,16 +120,14 @@ router.get('/:id', async (req, res, next) => {
 })
 
 
-// aca tmb tengo que incluirle los temperamentos. para que se suban a la base de datos ya con esa relacion. para q el get de arriba funcione
 router.post('/', async (req, res, next) => {
-  // creo q tambien deberia recibir temperaments. para poder relacionarlo con el dog. y luego en el get de arriba incluir los temperamentos.
     const {name, height, weight, life_span, createdInDataBase, temperaments, image} = req.body;
     try {
       const newRace = await Race.create({
         name,
         height,
         weight,
-        life_span: life_span ? life_span : null,
+        life_span: life_span ? life_span : '10',
         createdInDataBase,
         image
         // ACA NO SE AGREGA EL TEMPERAMENTO PORQUE PARA ELLO HAY QUE HACER LA CONEXION. ACA NO VA. 
@@ -178,7 +140,6 @@ router.post('/', async (req, res, next) => {
     })
 
     await newRace.addTemperaments(temperamentDb)
-    // newRace.addTemperaments(temperamentDb); // ver si funciona el set, sino usar el add. 
     res.send('Race creation Successfull');
 
     } catch (err) {

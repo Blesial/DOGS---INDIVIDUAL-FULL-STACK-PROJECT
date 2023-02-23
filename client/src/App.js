@@ -22,8 +22,8 @@ function App() {
         <Route exact path='/'>
           <Landing/>
         </Route>
-        <Route path='*'>
-      404 NOT FOUND 
+        <Route path='/*'>
+      404 NOT FOUND . HACER PAGINA DE ERROR! 
         </Route>
       </Switch>
       </div>

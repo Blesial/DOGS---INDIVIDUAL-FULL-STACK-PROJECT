@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { fetchRaces, getTemperaments, orderWeight } from "../actions";
+import { fetchRaces, filterByTemperaments, getTemperaments, orderWeight } from "../actions";
 import Race from "./race";
 import {Link} from 'react-router-dom'
 import Paginado from "./paginado";
@@ -56,6 +56,12 @@ export default function Home () {
 
   }
 
+  const handleFilterByTemp = (e) => {
+      dispatch(filterByTemperaments(e.target.value))
+      setCurrentPage(1);
+      setOrder(e.target.value)
+  }
+
    return (
       <div>
          <SearchBar/>
@@ -65,7 +71,6 @@ export default function Home () {
                 textDecoration:'None',
                 color: 'white',
             }} to='/add'>Create Race</Link></button>
-            <hr></hr>
  <p>Select Order :</p>
 <label 
 htmlFor="Ascending"
@@ -112,9 +117,11 @@ name="order"
             <option value='db'>Own Races</option>
             </select> 
             
-            <select>        
-            {store.races.map(e => {
-               <option>{e.temperaments}</option>
+            <select onChange={handleFilterByTemp}>        
+            {store.temperaments.map(e => {
+               return (
+                  <option value={e.name}>{e.name}</option>
+               )
             })}
             </select>
          <div>
@@ -124,42 +131,19 @@ name="order"
                   paginado={paginado}
          />
          </div>
+         <div className={styles.body}>
          { 
          currentRaces.map((race) => {
          return (
-            <body>
+            
             <div className={styles.container}>
                <Link to={'/home/' + race.id}>
             <Race key={race.id} name={race.name} image={race.image ? race.image : <img alt='Wof' src={dog}/>} temperaments={race.temperaments} weight={race.weight}/>
             </Link>
             </div>
-            </body>
          ) 
          })}
+         </div>
       </div> 
    )
 }
-
-// export function mapStateToProps (state) {
-//     return {
-//        myFavorites: state.myFavorites // PASA POR PROPS LO QUE ESTAMOS SOLICITANDOLE AL ESTADO GLOBAL
-//     }
-//  }
- 
- 
-//  export function mapDispatchToProps (dispatch) { // Y ESTA PARA PODER ENVIAR ACTIONS AL STORE DESDE LOS COMPONENTES DE REACT
-//     return {
-//        addCharacter: function (character) {
-//           dispatch(addCharacter(character))
-//        },
-//        deleteCharacter: function (id) {
-//           dispatch(deleteCharacter(id))
-//        }
-//     }
-//  }
- 
-//  export default connect (mapStateToProps, mapDispatchToProps)(Example)
-//  // RECIBE 2 ARGUMENTOS.  1 : MAPEA EL ESTADO GLOBAL DE LA APP A LA PROP DEL COMPONENTE.
- 
-//  // PARA CONECTAR EL STORE CON CADA COMPONENTE. DE ESTA MANERA EL COMPONENTE RECIBE POR PROPS EL ESTADO Q NECESITA DEL STORE. CADA VEZ Q EL STORE
-//  // SE MODIFICA, SE ACTUALIZARA EL COMPONENTE.  RECORDAR Q CADA VEZ Q SE ACTUALIZA EL ESTADO DE COMPONENTE SE ACTUALIZARA EL COMPONENTE. 

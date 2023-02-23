@@ -16,14 +16,13 @@ useEffect(() => {
 }, [dispatch]);
 
 const race = useSelector(store => store.detail) // ver como llega la info a detail (state)
-// race.temperaments = race.temperaments.map(temp => temp);
 console.log(race)
 return (
   
-   <div className={styles.card}> 
+   <div className={styles.body}> 
       
      {race.length > 0 ?
-     <div>
+     <div className={styles.card}>
         <img className={styles.img} src={race[0].image? race[0].image : 'https://i.pinimg.com/736x/99/b9/8d/99b98dc7b18311a1b464602342a245e8.jpg'}></img>
         <br></br>
         <div className={styles.info}>
@@ -34,16 +33,21 @@ return (
         <h2>Temperaments: {race[0].temperaments}</h2>
         </div>
         </div>
-      :     <div>
-      <img src='https://i.pinimg.com/736x/99/b9/8d/99b98dc7b18311a1b464602342a245e8.jpg' alt="Wof!"></img>
+      :     <div className={styles.card}>
+      <img className={styles.img} src='https://i.pinimg.com/736x/99/b9/8d/99b98dc7b18311a1b464602342a245e8.jpg' alt="Wof!"></img>
+      <div className={styles.info}> 
       <h1>Name: {race.name}</h1>
       <h2>Height: {race.height}</h2>
       <h2>Weight: {race.weight}</h2>
       <h2>Life Span: {race.age}</h2>
       <h2>Temperaments: {race.temperaments}</h2>
-      </div>}
-      <Link to='/home'><button className={styles.button_top}>Return Home</button></Link>
+      </div>
+      </div>
+      }
+            <Link to='/home'><button className={styles.button_top}>Return Home</button></Link>
+
 
    </div>
+   
         )
 }

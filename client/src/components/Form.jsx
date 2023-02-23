@@ -55,7 +55,7 @@ export default function Form () {
     function handleSelect (e) {
         setRace({
             ...race,
-            temperaments: [...race.temperaments , e.target.value]
+            temperaments: [...race.temperaments, e.target.value]
         })
     }
 
@@ -78,7 +78,7 @@ export default function Form () {
     let errors = {};
     race.weight > 200 ? errors.weight = 'Weight can not be more than 200 pounds' : errors.weight = '';
 
-        race.name.length < 5 || race.name.length > 10 ? errors.name = 'Name must have between five and ten characters' : errors.name = '';
+        race.name.length > 0 && race.name.length < 5 || race.name.length > 10 ? errors.name = 'Name must have between five and ten characters' : errors.name = '';
         race.height > 40 ? errors.height = 'Height must be under 40 inches from the shoulder' : errors.height = '';
         return errors;
     }
@@ -90,13 +90,6 @@ export default function Form () {
         })
     }
 
-
-    // '12 - 20'.split('-')
-
-    // (2) ['12 ', ' 20']
-
-    // [0] cant be lesser than 12.. 
-    // [1] cant be greater than 20
 
     // EN WEIGHT Y HEIGHT TENGO QUE DIFERENCIAR ENTRE PESO MINIMO Y MAXIMO Y LO MISMO PARA LA ALTURA. 
     return (
@@ -157,9 +150,8 @@ export default function Form () {
                 race.temperaments.map(temp => {
                     return (
                         <div>
-                            <br></br>
                     <button onClick={() => handleDelete(temp)}>x</button>
-                        <p>{temp}</p>
+                        <span>{temp}</span>
                 
                         </div>
                     )

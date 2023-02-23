@@ -7,8 +7,16 @@
   border: 3px solid black;
   border-radius: 0.4em;
   box-shadow: 0.1em 0.1em;
+  margin-right: 5%;
+  margin-bottom: 5%;
+
  }
- 
+.body {
+  height: 120%;
+  width: 100%;
+  background: url('https://w0.peakpx.com/wallpaper/736/172/HD-wallpaper-golden-retriever-dog-is-standing-on-algae-covered-rock-in-blur-forest-background-dog.jpg') no-repeat ;
+  background-size: cover;
+}
 
  
 
@@ -37,10 +45,11 @@
     overflow: hidden;
   }
   .card {
-    margin-left: 30%;
-    margin-top: 1%;
+    margin-left: 1%;
+    margin-top: 0;
     margin-bottom: 2%;
     max-width: 35%;
+  
     transition: 1s ease-in-out;
     clip-path: polygon(30px 0%, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0% 30px);
     border-top-right-radius: 20px;
@@ -66,3 +75,4 @@
 
   }
 
+  

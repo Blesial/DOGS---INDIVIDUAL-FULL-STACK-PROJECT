@@ -4,7 +4,8 @@ const initialState = {
     races: [],
     allRacesFixed: [],
     temperaments: [],
-    detail: []
+    detail: [],
+    errorMessage: '',  
 };
 
 export default function rootReducer (state = initialState, action){
@@ -13,13 +14,20 @@ export default function rootReducer (state = initialState, action){
             return {
                 ...state, // siempre se hace esto PORQUE HAY Q CREAR UNA COPIA DEL ESTADO ANTERIOR Y MODIFICAR ESA COPIA. NUNCA SE MODIFICA EL ESTADO ANTERIOR. SIEMPRE ES ALGO NUEVO LO Q SE TIENE QUE CARGAR EN EL ESTADO. SE PISAN LOS ESTADOS
                 races: action.payload,
-                allRacesFixed: action.payload
+                allRacesFixed: action.payload // hardcodear razas 
             }
         case SEARCH_RACE:
             return {
                 ...state,
-                races: action.payload 
-            }
+                races: action.payload,
+                errorMessage: ''
+            }       
+    //         case DOGS_BY_NAME_MESSAGE_ERROR:
+    //   return {
+    //     ...state,
+    //     errorMessage: 'Race not found',
+    //     races: [],
+    //   }
         case ORDER_WEIGHT:
             let weightedRaces = state.races
             // weightedRaces = weightedRaces.map(e => e.weight.toString()[0]);
@@ -59,10 +67,10 @@ export default function rootReducer (state = initialState, action){
             
             case FILTER_BY_TEMPERAMENTS:
                 const all = state.allRacesFixed;
-                
+                const dogsFilter = all.filter(el => el.temperaments && el.temperaments.split(", ").find((e)=> e === action.payload))
                 return {
                     ...state,
-                     
+                    races: dogsFilter
                 }
             case FILTER_RACE:
 
