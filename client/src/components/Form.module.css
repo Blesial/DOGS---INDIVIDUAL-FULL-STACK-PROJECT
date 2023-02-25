@@ -4,7 +4,7 @@
     font-size: 10%;
     background: url('../assets/dogsss.jpg') ;
     background-size: cover;
-    height: 100vh;
+    height: 120vh;
     justify-content: center;
     display: flex;
     align-items: center;
@@ -28,7 +28,7 @@
     background: transparent;
     visibility: visible;
     opacity: 70%;
-    width: clamp(45rem, 40vw, 110rem);
+    width: clamp(30rem, 50vw, 80rem);
     background-size: cover;
     background-position: center;
     border-radius: 10px;
@@ -37,12 +37,14 @@
     justify-content: center;
     align-items: center;
 
+
     
 }
 
  .form{
     /* border: 1px solid white; SI QUIERO METER RECUADRO  */ 
     border-radius: 10px;
+    width: 90%;
 } 
 
 .h1{
@@ -87,3 +89,54 @@ input{
     text-align: center;
     text-decoration: none;
 }
+
+.but{
+    width: 80px;
+    
+}
+
+  .inputTemperament {
+    text-align: center;
+    width: 200px;
+    height: 25px;
+    font-size: 20px;
+    align-self: center;
+    border-radius: 10px;
+    margin-right: 5%;
+  } 
+  .buttonTemperament {
+    width: auto;
+    height: 20px;
+    font-size: 17px;
+    align-self: center;
+    border-radius: 10px;
+    padding: 0 5px;
+  }
+  .error {
+    color: #9c0404;
+    font-size: 14px;
+    align-self: center;
+  }
+
+  .inputNumber {
+    text-align: center;
+    width: 95px;
+    height: 25px;
+    font-size: 14px;
+    align-self: center;
+    border-radius: 10px;
+  }
+
+  .create {
+    display: flex;
+    justify-content: center;
+  }
+  .buttonn {
+    width: 90px;
+    height: 30px;
+    font-size: 14px;
+    align-self: center;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-top: 2%;
+  }

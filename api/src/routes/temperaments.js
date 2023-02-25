@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => { // /temperaments: el arreglo de la a
   let apiRaces = await axios.get('https://api.thedogapi.com/v1/breeds?limit=50');
 
   const apiTemperaments = apiRaces.data.map(race => {
-     return race.temperament.split(',')
+     return race.temperament?.split(', ')
   });
 
  var mergedTemperamentsArray = [].concat.apply([], apiTemperaments); // el array of arrays los paso a un solo array. 
@@ -48,3 +48,40 @@ module.exports = router;
 
 
 
+const temperaments = async () => {
+  try {
+    let api = await axios.get(
+      `https://api.thedogapi.com/v1/breeds`
+    );
+    let data = api.data.map((item) =>
+      item.temperament ? item.temperament.split(", ") : []
+    );
+
+    let temperamentArray = [];
+
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].length; j++) {
+        if (temperamentArray.indexOf(data[i][j]) === -1) {
+          temperamentArray.push(data[i][j]);
+        }
+      }
+    }
+    return temperamentArray.sort();
+  } catch (error) {
+    return error.message;
+  }
+};
+router.get("/temperaments", async (req, res) => {
+  try {
+    const data = await temperaments();
+    data.forEach((el) => {
+      Temperament.findOrCreate({
+        where: { name: el },
+      });
+    });
+    const allTemperaments = await Temperament.findAll();
+    res.status(200).json(allTemperaments);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});

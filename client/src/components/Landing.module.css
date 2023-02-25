@@ -13,25 +13,8 @@ body {
   text-align: center;
   font-size: 40px;
   font-family: 'Yusei Magic', sans-serif;
-  height: 95vh;
+  height: 100vh;
 }   
-
-
-
- /* ESTO PA LAS CARDS:  */
-/* .doggy{
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-
-  padding-top: 1px;
-  padding-left: 35%;
-  width: 400px;
-  height: 400px;
-  object-fit: contain;
-} */
 
 
 
@@ -63,4 +46,5 @@ body {
   transform: translate(0.3em, 0.2em);
   color: black;
 }
+
 

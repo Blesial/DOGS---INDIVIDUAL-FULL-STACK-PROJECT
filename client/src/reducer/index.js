@@ -1,11 +1,11 @@
-import { FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, POST_RACE, FILTER_RACE, SEARCH_RACE, ORDER_WEIGHT, FILTER_BY_TEMPERAMENTS} from "../actions/types";
+import { FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, POST_RACE, FILTER_RACE, SEARCH_RACE, ORDER_WEIGHT, FILTER_BY_TEMPERAMENTS, DOGS_BY_NAME_MESSAGE_ERROR} from "../actions/types";
 
 const initialState = {
     races: [],
     allRacesFixed: [],
     temperaments: [],
     detail: [],
-    errorMessage: '',  
+    errorMessage: ''
 };
 
 export default function rootReducer (state = initialState, action){
@@ -22,12 +22,12 @@ export default function rootReducer (state = initialState, action){
                 races: action.payload,
                 errorMessage: ''
             }       
-    //         case DOGS_BY_NAME_MESSAGE_ERROR:
-    //   return {
-    //     ...state,
-    //     errorMessage: 'Race not found',
-    //     races: [],
-    //   }
+            case DOGS_BY_NAME_MESSAGE_ERROR:
+      return {
+        ...state,
+        errorMessage: 'Race not found',
+        races: [],
+      }
         case ORDER_WEIGHT:
             let weightedRaces = state.races
             // weightedRaces = weightedRaces.map(e => e.weight.toString()[0]);

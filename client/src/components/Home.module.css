@@ -43,6 +43,19 @@
 
 .container{
   background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQwjG444l7xRM8P4pRxMSu09QBj7D_xrSPXg&usqp=CAU');
-
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
+.notfound{
+  width: 100vw;
+  height: 100vh;
+}
+
+html {
+  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQwjG444l7xRM8P4pRxMSu09QBj7D_xrSPXg&usqp=CAU');
+  font-size: 17px;
+  line-height: 1.496; /* 1 */
+}

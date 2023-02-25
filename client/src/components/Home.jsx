@@ -5,13 +5,14 @@ import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { fetchRaces, filterByTemperaments, getTemperaments, orderWeight } from "../actions";
 import Race from "./race";
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import Paginado from "./paginado";
 import { filterRacesByOrigin } from "../actions";
 import { orderRace } from "../actions";
 import dog from '/Users/blesial/Desktop/PI-Dogs-main/client/src/dog.png'
 import styles from './Home.module.css';
 import SearchBar from "./searchBar";
+import NotFound from './NotFound';
 
 
 export default function Home () {
@@ -25,8 +26,7 @@ export default function Home () {
 
    const indexOfLastRace = currentPage * racePerPage; //[8] (recorda que el metodo slice incluye el "desde" pero no el "hasta")
    const indexOfFirstRace = indexOfLastRace - racePerPage;
-   const currentRaces = store.races.slice(indexOfFirstRace, indexOfLastRace
-      )
+   const currentRaces = store.races.slice(indexOfFirstRace, indexOfLastRace);
 
    const paginado = (pageNumber) => {
       setCurrentPage(pageNumber)
@@ -131,13 +131,16 @@ name="order"
                   paginado={paginado}
          />
          </div>
+      
          <div className={styles.body}>
          { 
+         store.errorMessage ? <div className={styles.notfound}><NotFound/></div>
+         :
          currentRaces.map((race) => {
          return (
             
             <div className={styles.container}>
-               <Link to={'/home/' + race.id}>
+               <Link to={`/home/${race.id}`}>
             <Race key={race.id} name={race.name} image={race.image ? race.image : <img alt='Wof' src={dog}/>} temperaments={race.temperaments} weight={race.weight}/>
             </Link>
             </div>

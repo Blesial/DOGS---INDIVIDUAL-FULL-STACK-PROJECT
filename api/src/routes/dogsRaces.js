@@ -6,6 +6,7 @@ const db = require('../db');
 const router = Router();
 require('dotenv').config();
 const {DOG_API_KEY} = process.env; 
+const validate = require('./validate')
 
 const apiLink = `https://api.thedogapi.com/v1/breeds?api_key=${DOG_API_KEY}`
 
@@ -61,11 +62,15 @@ let apiRaces = await axios.get(apiLink);
     }
   })
   let filteredDbRaces = dbRaces.map(race => {
+    const weightArray = race.weight.split(" - "); // ACA TRAEMOS DE LA BASE DE DATOS EL PERRO CREADO CON EL POST 
+    
     return {
       id: race.id,
       name: race.name,
-      image: race.image ? race.image : race.img,
+      image: race.image,
       weight: race.weight,
+      weightMin: +weightArray[0],
+      weightMax: +weightArray[1],
       createdInDataBase: race.createdInDataBase,
       temperaments: race.temperaments.map(temp => {
         return `${temp.name}, `
@@ -74,7 +79,7 @@ let apiRaces = await axios.get(apiLink);
     }
   })
   let arrayOfRaces = [...filteredApiRaces,...filteredDbRaces];
-  if (arrayOfRaces.length < 1) return res.status(404).send('Dog Race could not be found')
+  if (arrayOfRaces.length < 1) return res.send([])
   return res.status(200).send(arrayOfRaces);
     })
 
@@ -93,8 +98,8 @@ router.get('/:id', async (req, res, next) => {
         }
        }
      });
-     race.dataValues.temperaments = race.dataValues.temperaments.map(temp => temp.name);
-        //  let a = race.dataValues.temperaments.map(temp => temp.name) // este codigo es pa convertir el array de temperaments a que este igual formato q los q traigo de la apizz
+     race.dataValues.temperaments = race.dataValues?.temperaments?.map(temp => temp.name);
+        //  let a = race.dataValues.temperaments.map(temp => temp.name) // este codigo es pa convertir el array de temperaments a que este igual formato q los q traigo de la api
      return res.send(race.dataValues);
 
    } else { // es de la api 
@@ -120,17 +125,21 @@ router.get('/:id', async (req, res, next) => {
 })
 
 
-router.post('/', async (req, res, next) => {
-    const {name, height, weight, life_span, createdInDataBase, temperaments, image} = req.body;
+router.post('/', async (req, res, next) => { // ACA SE CARGA EN LA BASE DE DATOS EL PERRO. DE LA FORMA Q SE NOS CANTE
+    const {name, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, createdInDataBase, temperaments} = req.body;
     try {
+      const validator = validate(req.body);
+      if (Object.keys(validator).length > 0) {
+        return res.status(400).json(validator);
+      } else {
+
       const newRace = await Race.create({
         name,
-        height,
-        weight,
-        life_span: life_span ? life_span : '10',
+        height: `${heightMin} - ${heightMax}`,
+        weight: `${weightMin} - ${weightMax}`,
+        lifeSpan: `${lifeSpanMin} - ${lifeSpanMax}`,
         createdInDataBase,
-        image
-        // ACA NO SE AGREGA EL TEMPERAMENTO PORQUE PARA ELLO HAY QUE HACER LA CONEXION. ACA NO VA. 
+        // ACA NO SE AGREGA EL TEMPERAMENTO PORQUE PARA ELLO HAY QUE HACER LA CONEXION. 
     });
 
     let temperamentDb = await Temperament.findAll({
@@ -140,8 +149,8 @@ router.post('/', async (req, res, next) => {
     })
 
     await newRace.addTemperaments(temperamentDb)
-    res.send('Race creation Successfull');
-
+   return res.send('Race creation Successfull');
+ }
     } catch (err) {
       next(err)
     }
@@ -150,3 +159,4 @@ router.post('/', async (req, res, next) => {
 module.exports = router;
 
 // ver de hacer validaciones tambien aca en el back. no solo en el front 
+

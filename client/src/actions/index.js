@@ -1,4 +1,4 @@
-import {FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, ORDER_WEIGHT, SEARCH_RACE, POST_RACE, FILTER_RACE, FILTER_BY_TEMPERAMENTS} from './types';
+import {FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, ORDER_WEIGHT, SEARCH_RACE, POST_RACE, FILTER_RACE, FILTER_BY_TEMPERAMENTS, DOGS_BY_NAME_MESSAGE_ERROR} from './types';
 import axios from 'axios';
 // ACTIONS CREATORS
 // Aca estamos utilizando redux thunk. Por eso usamos el dispatch dentro de la action creator.
@@ -19,14 +19,20 @@ export const fetchRaces = () => async (dispatch) => {
 export const searchRaces = (search) => async (dispatch) => {
   try {
     const race = await axios.get(`http://localhost:3001/api/dogs?name=${search}`)
-    dispatch({
-      type: SEARCH_RACE,
-      payload: race.data
-    })
+    console.log(race.data)
+    race.data.length ?
+      dispatch({
+        type: SEARCH_RACE,
+        payload: race.data
+      })
+      :
+      dispatch({ type: DOGS_BY_NAME_MESSAGE_ERROR });
+  
   } catch (error) {
     console.log(error)
   }
 }
+
 
 export function orderRace (order) {
   return {

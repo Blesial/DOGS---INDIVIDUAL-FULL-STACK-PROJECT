@@ -9,14 +9,12 @@ import styles from './Detail.module.css';
 export default function Detail () {
 const dispatch = useDispatch();
 const id = useParams();
-console.log(id.id)
 useEffect(() => { 
   dispatch(filterRaces(id.id));
        
 }, [dispatch]);
 
 const race = useSelector(store => store.detail) // ver como llega la info a detail (state)
-console.log(race)
 return (
   
    <div className={styles.body}> 
@@ -39,8 +37,8 @@ return (
       <h1>Name: {race.name}</h1>
       <h2>Height: {race.height}</h2>
       <h2>Weight: {race.weight}</h2>
-      <h2>Life Span: {race.age}</h2>
-      <h2>Temperaments: {race.temperaments}</h2>
+      <h2>Life Span: {race.lifeSpan}</h2>
+      <h2>Temperaments: {`${race.temperaments},`}</h2>
       </div>
       </div>
       }
