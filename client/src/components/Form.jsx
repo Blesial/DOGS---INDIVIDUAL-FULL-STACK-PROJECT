@@ -25,7 +25,7 @@ export default function Form () {
         temperament: '',
         temperaments: []
     });
-
+    console.log(race.temperaments)
     const [errors, setErrors] = useState({});
 
 
@@ -34,9 +34,9 @@ export default function Form () {
     }, [dispatch])
 
     const temperaments = useSelector(store => store.temperaments);
-
+    
     const history = useHistory();
-
+    console.log(race.temperament)
     function handleChange (e) {
 
         setRace({                      
@@ -80,9 +80,7 @@ export default function Form () {
       function handleSubmit (e) {
         e.preventDefault();
         const error = validate(race);
-        console.log(error)
         setErrors(error);
-        console.log(errors)
         if (Object.keys(errors).length === 0) {
           dispatch(postRace(race));
           setRace({
@@ -97,7 +95,7 @@ export default function Form () {
             temperaments: [],
           });
           setErrors({});
-          dispatch(fetchRaces(2))
+          dispatch(fetchRaces())
           history.push('/home');
           alert("Dog created successfully");
         } else {
@@ -211,8 +209,7 @@ export default function Form () {
           {temperaments.map((temperament) => (
                <option
             key={temperament.id}
-            value={temperament.name}
-            >
+            value={temperament.name} >
              {temperament.name}
              </option>
         ))}

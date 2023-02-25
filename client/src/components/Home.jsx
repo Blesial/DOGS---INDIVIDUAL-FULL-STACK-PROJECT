@@ -3,12 +3,10 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { fetchRaces, filterByTemperaments, getTemperaments, orderWeight } from "../actions";
+import { fetchRaces, getFilterBy, getTemperaments } from "../actions";
 import Race from "./race";
 import {Link} from 'react-router-dom';
 import Paginado from "./paginado";
-import { filterRacesByOrigin } from "../actions";
-import { orderRace } from "../actions";
 import dog from '/Users/blesial/Desktop/PI-Dogs-main/client/src/dog.png'
 import styles from './Home.module.css';
 import SearchBar from "./searchBar";
@@ -18,7 +16,12 @@ import NotFound from './NotFound';
 export default function Home () {
    const dispatch = useDispatch()
    const store = useSelector(state => state)
-   const [order, setOrder] = useState();
+
+      const [filter, setFilter] = useState({
+     temperament: "All",
+     origin: "all",
+     order: "Ascending",
+   });
 
 //PAGINADO:
    const [currentPage, setCurrentPage] = useState(1);
@@ -39,114 +42,123 @@ export default function Home () {
    }, [dispatch]); // ver si genera problemas meter el dispatch ahi . soluciona un error que me tira react 
    // se lo llama array de dependencias. Si no ponemos el array de dependencias se monta y renderiza en loop 
 
-   function handleFilterByOrigin (e) {
-      dispatch(filterRacesByOrigin(e.target.value))
+
+   function handleFilters (e) {
+      setFilter({
+         ...filter,
+         [e.target.name]: e.target.value
+      })
    }
 
-   const handleSort = (e) => {
-      dispatch(orderRace(order));
-      setCurrentPage(1);
-      setOrder(e.target.value); // esto es para que vuelva a renderizar el componente. sino no funcionaria el set current page
-  }
+   const handleSubmit = (e) => {
 
-  const handleWeight = (e) => {
-      dispatch(orderWeight(e.target.value))
-      setCurrentPage(1);
-      setOrder(e.target.value)
+            e.preventDefault();
+           dispatch(getFilterBy(filter));
+           setCurrentPage(1);
+           setFilter({
+             temperament: "All",
+             origin: "all",
+             order: "Ascending",
+           });
+         };
 
-  }
-
-  const handleFilterByTemp = (e) => {
-      dispatch(filterByTemperaments(e.target.value))
-      setCurrentPage(1);
-      setOrder(e.target.value)
-  }
 
    return (
+      <>
+
       <div>
-         <SearchBar/>
-                 <div>
-                 <button className={styles.button}><Link style={{
-                padding: '0 10px',
-                textDecoration:'None',
-                color: 'white',
-            }} to='/add'>Create Race</Link></button>
- <p>Select Order :</p>
-<label 
-htmlFor="Ascending"
->
-    Ascending
-</label>
-<input
-type='radio'
-id="Ascending"
-value='Ascending'
-name='order'
-onChange={handleSort}
+        <SearchBar/>
+               
+               <button className={styles.button}><Link style={{
+              padding: '0 10px',
+              textDecoration:'None',
+              color: 'white',
+          }} to='/add'>Create Race</Link></button>
+      </div>
+        <div className={styles.acomoda}>
+      <form type="submit" onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.order}>
+        <label htmlFor="order">
+          <span>Order: </span>
+        </label>
+       <select
+         className={styles.input}
+         id="order"
+         name="order"
+         value={filter.order}
+         onChange={handleFilters}
+       >
+         <option value="Ascending">Name (A - Z)</option>
+         <option value="Descending">Name (Z - A)</option>
+         <option value="Weight">Weight (Min - Max)</option>
+       </select>
+     </div>
+              <div className={styles.origin}>
+             <label htmlFor="origin">
+             <span>Origin: </span>
+            </label>
+           <select
+         className={styles.input}
+         id="origin"
+         name="origin"
+         value={filter.origin}
+         onChange={handleFilters}
+       >
+         <option value="all">All</option>
+         <option value="api">Api</option>
+         <option value="db">Data base</option>
+       </select>
+     </div>
 
-/>
 
-<label 
-htmlFor="Descending"
->
-    Descending
-</label>
-<input
-type='radio'
-id="Descending"
-value='Descending'
-name='order'
-defaultChecked
-onChange={handleSort}
-/>
+     <div className={styles.temperament}>
+          <label htmlFor="temperament">
+            <span>Temperament: </span>
+          </label>
+          <select
+         className={styles.input}
+         id="temperament"
+         name="temperament"
+         value={filter.temperament}
+         onChange={handleFilters}
+       >
+         <option value="All">All</option>
+         {store.temperaments.map((temperament) => (
+           <option key={temperament.id} value={temperament.name}>
+             {temperament.name}
+           </option>
+         ))}
+       </select>
+     </div>
+     <button className={styles.search} type="submit" onClick={handleSubmit}>
+      GO!        </button>
+     </form>
+     </div>
 
-<label htmlFor="Weight" >
-    Weight
-</label>
-<input onChange={handleWeight}
-type='radio'
-id="Weight"
-value='Weight'
-name="order"
-/>
-        </div>
-         <br></br>
-            <select onChange={handleFilterByOrigin} >
-            <option value='all'>All Races</option>
-            <option value='api'>Api Races</option>
-            <option value='db'>Own Races</option>
-            </select> 
-            
-            <select onChange={handleFilterByTemp}>        
-            {store.temperaments.map(e => {
-               return (
-                  <option value={e.name}>{e.name}</option>
-               )
-            })}
-            </select>
-         <div>
-      <br></br>
-      <Paginado  racePerPage={racePerPage}
-                  racesStore={store.races.length}
-                  paginado={paginado}
-         />
-         </div>
-      
-         <div className={styles.body}>
-         { 
-         store.errorMessage ? <div className={styles.notfound}><NotFound/></div>
-         :
-         currentRaces.map((race) => {
-         return (
-            
-            <div className={styles.container}>
-               <Link to={`/home/${race.id}`}>
-            <Race key={race.id} name={race.name} image={race.image ? race.image : <img alt='Wof' src={dog}/>} temperaments={race.temperaments} weight={race.weight}/>
-            </Link>
-            </div>
-         ) 
-         })}
-         </div>
-      </div> 
+     <div>
+    <Paginado  racePerPage={racePerPage}
+                racesStore={store.races.length}
+                paginado={paginado}
+       />
+       </div>
+       <div className={styles.body}>
+       { 
+       store.errorMessage ? <div className={styles.notfound}><NotFound/></div>
+       :
+       currentRaces.map((race) => {
+       return (
+          
+          <div className={styles.container}>
+             <Link to={`/home/${race.id}`}>
+          <Race key={race.id} name={race.name} image={race.image ? race.image : <img alt='Wof' src={dog}/>} temperaments={race.temperaments} weight={race.weight}/>
+          </Link>
+          </div>
+       ) 
+       })}
+       </div>
+     </>
    )
 }
+
+
+

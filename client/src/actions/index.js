@@ -1,4 +1,4 @@
-import {FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, ORDER_WEIGHT, SEARCH_RACE, POST_RACE, FILTER_RACE, FILTER_BY_TEMPERAMENTS, DOGS_BY_NAME_MESSAGE_ERROR} from './types';
+import {FETCH_RACE, GET_TEMPERAMENTS,FILTER_BY, SEARCH_RACE, POST_RACE, FILTER_RACE, DOGS_BY_NAME_MESSAGE_ERROR} from './types';
 import axios from 'axios';
 // ACTIONS CREATORS
 // Aca estamos utilizando redux thunk. Por eso usamos el dispatch dentro de la action creator.
@@ -19,7 +19,6 @@ export const fetchRaces = () => async (dispatch) => {
 export const searchRaces = (search) => async (dispatch) => {
   try {
     const race = await axios.get(`http://localhost:3001/api/dogs?name=${search}`)
-    console.log(race.data)
     race.data.length ?
       dispatch({
         type: SEARCH_RACE,
@@ -33,19 +32,56 @@ export const searchRaces = (search) => async (dispatch) => {
   }
 }
 
+export const getFilterBy = ({temperament, origin, order}) => {
+  return function (dispatch) {
+    axios.get('http://localhost:3001/api/dogs').then((response) => {
+      let dataFilter = [];
 
-export function orderRace (order) {
-  return {
-    type: ORDER_RACE,
-    payload: order
-  }
-}
-export function orderWeight (order) {
-  return {
-    type: ORDER_WEIGHT,
-    payload: order
-  }
-}
+      temperament === "All"
+        ? dataFilter = response.data
+        : dataFilter = response.data.filter((race) =>
+            race.temperaments ? race.temperaments.includes(temperament) : false
+          );
+
+      origin === "db"
+        ? dataFilter = dataFilter.filter(race => race.createdInDataBase)
+        : origin === "all" ? dataFilter = dataFilter : dataFilter = dataFilter.filter(race => !race.createdInDataBase)
+
+
+      order === "Ascending"
+        ? dataFilter = dataFilter.sort((a, b) => {
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+              return 1;
+            }
+            if (a.name.toLowerCase() < b.name.toLowerCase()) {
+              return -1;
+            }
+          })
+        : order === "Descending"
+        ? dataFilter = dataFilter.sort((b, a) => {
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+              return 1;
+            }
+            if (a.name.toLowerCase() < b.name.toLowerCase()) {
+              return -1;
+            }
+          })
+        : order === "Weight"
+        ? dataFilter = dataFilter.sort((a, b) => {
+            if (a.weightMin > b.weightMin) {
+              return 1;
+            }
+            if (a.weightMin < b.weightMin) {
+              return -1;
+            }
+          })
+        : dataFilter = dataFilter;
+
+      dispatch({ type: FILTER_BY, payload: dataFilter });
+    });
+  };
+};
+
 
 export const filterRaces = (id) => async (dispatch) => {
   try {
@@ -57,20 +93,6 @@ export const filterRaces = (id) => async (dispatch) => {
     })
   } catch (error)  {
     console.log(error)
-  }
-}
-
-export function filterRacesByOrigin (payload) {
-  return {
-    type: FILTER_BY_ORIGIN,
-    payload
-  }
-}
-
-export function filterByTemperaments (payload) {
-  return {
-    type: FILTER_BY_TEMPERAMENTS,
-    payload
   }
 }
 
@@ -98,10 +120,6 @@ export const postRace = (payload) => async (dispatch) => {
   }
 }
 
-// export const postCreateDog = (payload) => {
-//   return async (dispatch) => {
-//       const res = await axios.post('http://localhost:3004/dogs',payload);
-//       console.log(res);
-//       return res;
-//     }
-// };
+
+
+

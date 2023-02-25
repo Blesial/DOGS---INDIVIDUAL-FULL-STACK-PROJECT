@@ -1,4 +1,4 @@
-import { FETCH_RACE, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, POST_RACE, FILTER_RACE, SEARCH_RACE, ORDER_WEIGHT, FILTER_BY_TEMPERAMENTS, DOGS_BY_NAME_MESSAGE_ERROR} from "../actions/types";
+import { FETCH_RACE, FILTER_BY, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, POST_RACE, FILTER_RACE, SEARCH_RACE, ORDER_WEIGHT, FILTER_BY_TEMPERAMENTS, DOGS_BY_NAME_MESSAGE_ERROR} from "../actions/types";
 
 const initialState = {
     races: [],
@@ -28,51 +28,13 @@ export default function rootReducer (state = initialState, action){
         errorMessage: 'Race not found',
         races: [],
       }
-        case ORDER_WEIGHT:
-            let weightedRaces = state.races
-            // weightedRaces = weightedRaces.map(e => e.weight.toString()[0]);
-            const orderWeight = weightedRaces.sort((a, b) => {
-
-            return a.weight.toString().split('-')[0].includes('up') ? a.weight.toString().split('-')[0] - b.weight.toString().split('-')[0] : b.weight.toString().split('-')[0] - a.weight.toString().split('-')[0]
-            })        
-                 return {
+        case FILTER_BY: // ACA VOY A JUNTAR TODO 
+            return {
                 ...state,
-                races: orderWeight
+               races: action.payload
             }
-        case ORDER_RACE:
-            let orderedRaces = state.races
-        orderedRaces = orderedRaces.sort((a, b) => {
-            if (a.name < b.name) {
-                return action.payload === 'Ascending' ? -1 : 1; // va comparando dos valores 
-            }
-            if (a.name > b.name) {
-                return action.payload === 'Ascending' ? 1 : -1;
-            }
-  
-            return 0; // si son iguales que quede como esta 
-        });
-
-        return {
-                ...state,
-                races: orderedRaces
-            }
-            case FILTER_BY_ORIGIN:
-                const allRaces = state.allRacesFixed;
-            // dejamos siempre fijo el allraces. y trabajamos sobre el. pero a la hora del return. modificamos el races unicamente
-                const raceFilterFrom = action.payload === 'all' ? allRaces : allRaces.filter(e => action.payload === 'db' ? e.createdInDataBase : !e.createdInDataBase)
-                    return {
-                        ...state,
-                        races: raceFilterFrom
-                    }
-            
-            case FILTER_BY_TEMPERAMENTS:
-                const all = state.allRacesFixed;
-                const dogsFilter = all.filter(el => el.temperaments && el.temperaments.split(", ").find((e)=> e === action.payload))
-                return {
-                    ...state,
-                    races: dogsFilter
-                }
-            case FILTER_RACE:
+   
+            case FILTER_RACE: // DETAIL
 
             return {
                 ...state,

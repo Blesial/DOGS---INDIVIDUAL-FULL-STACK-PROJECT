@@ -2,7 +2,6 @@ const { DataTypes, Sequelize } = require('sequelize');
 
 
 module.exports = (sequelize) => {
-    // defino el modelo
     sequelize.define('race', {
       id: {
         type: DataTypes.UUID,

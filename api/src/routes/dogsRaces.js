@@ -53,12 +53,29 @@ let apiRaces = await axios.get(apiLink);
   }
 
   let filteredApiRaces = apiRaces.map(race => { // PARA MOSTRAR LO QUE NOS INTERESA UNICAMENTE
+    const weightArray = +race.weight.metric > 0
+      ? +race.weight.metric
+      : race.weight.metric.split(" - ").length > 1
+      ? race.weight.metric.split(" - ")
+      : 0;
     return {
       id: race.id,
       name: race.name,
       image: race.image.url,
-      weight: race.weight.imperial,
-      temperaments: race.temperament
+      weight: race.weight.metric,
+      temperaments: race.temperament,
+      weightMin:
+      typeof weightArray === "number"
+        ? weightArray
+        : weightArray === 0
+        ? 0
+        : +weightArray[0],
+    weightMax:
+      typeof weightArray === "number"
+        ? weightArray
+        : weightArray === 0
+        ? 0
+        : +weightArray[1],
     }
   })
   let filteredDbRaces = dbRaces.map(race => {
@@ -73,7 +90,7 @@ let apiRaces = await axios.get(apiLink);
       weightMax: +weightArray[1],
       createdInDataBase: race.createdInDataBase,
       temperaments: race.temperaments.map(temp => {
-        return `${temp.name}, `
+        return `${temp.name}`
 
       })
     }
@@ -112,8 +129,8 @@ router.get('/:id', async (req, res, next) => {
         name: elem.name,
         age: elem.life_span,
         temperaments: elem.temperament.split(' , '), // ver si conviene asi o solo split(' ')
-        height: elem.height.imperial,
-        weight: elem.weight.imperial,
+        height: elem.height.metric,
+        weight: elem.weight.metric,
       }
      })
 
@@ -128,6 +145,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => { // ACA SE CARGA EN LA BASE DE DATOS EL PERRO. DE LA FORMA Q SE NOS CANTE
     const {name, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, createdInDataBase, temperaments} = req.body;
     try {
+      console.log(temperaments)
       const validator = validate(req.body);
       if (Object.keys(validator).length > 0) {
         return res.status(400).json(validator);
