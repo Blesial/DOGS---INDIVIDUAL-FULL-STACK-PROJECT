@@ -1,16 +1,14 @@
 import React from "react";
-import notStyles from "./NotFound.module.css";
 
 function NotFound() {
   
   return (
     <>
-    <div className={notStyles.container}>
+    <div>
+      <br>
+      </br>
       <h1>Dog not found :( </h1>
-  
-     <div className={notStyles.img}> <img src='https://media.tenor.com/bN2IkZ5vzxIAAAAM/byuntear-meme.gif' alt='' /> </div>
-  
-
+      <iframe title="Couldnotfound" src="https://giphy.com/embed/iDJQRjTCenF7A4BRyU" width="400" height="480" frameBorder="0" className="giphy-embed" allowFullScreen></iframe><p>TRY AGAIN</p>
     </div>
     </>
 

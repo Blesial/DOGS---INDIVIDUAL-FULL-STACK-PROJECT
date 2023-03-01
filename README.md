@@ -17,7 +17,7 @@
 El proyecto tendrá una duración máxima de tres semanas. En el caso de que completan todas las tareas antes de dicho lapso podrán avisar a su Instructor para coordinar una fecha de presentación del trabajo (DEMO).
 
 ## Comenzando
-
+  
  1. Forkear el repositorio para tener una copia del mismo en sus cuentas
  2. Clonar el repositorio en sus computadoras para comenzar a trabajar
 
@@ -29,7 +29,46 @@ Actualmente las versiónes necesarias son:
 
 - __Node__: 12.18.3 o mayor
 - __NPM__: 6.14.16 o mayor
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  position: relative;
+  cursor: pointer;
+  height: 100px;
+  border-radius: 100px;
+  border: none;
+  background: #333;
+  color: #e5e5e5;
+  font-weight: 600;
+  box-shadow: inset 20px 20px 39px #080a10,
+  inset -20px -20px 39px #1b263e;
+  font-size: 13px;
+}
 
+button::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -10px;
+  top: -10px;
+  border-radius: 50%;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  background: linear-gradient(35deg, rgb(47, 190, 238), rgb(218, 57, 143), rgb(139, 255, 23));
+  filter: blur(10px);
+}
+
+button:hover::after {
+  animation: rotcirclegr 1s linear infinite;
+}
+
+@keyframes rotcirclegr {
+  to {
+    transform: rotate(360deg);
+  }
+}
 Para verificar que versión tienen instalada:
 
 ```bash

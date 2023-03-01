@@ -12,10 +12,11 @@ const apiLink = `https://api.thedogapi.com/v1/breeds?api_key=${DOG_API_KEY}`
 
 
 router.get('/', async (req, res, next) => {
+
+
 let {name} = req.query;
 let dbRaces;
 let apiRaces = await axios.get(apiLink);
-
     if (name) {
 
       apiRaces = apiRaces.data.filter(e => e.name.toUpperCase().includes(name.toUpperCase()))  
@@ -173,6 +174,22 @@ router.post('/', async (req, res, next) => { // ACA SE CARGA EN LA BASE DE DATOS
       next(err)
     }
 })
+
+  router.delete('/delete/:id', async (req, res, next) => {
+    const {id} = req.params;
+    try {
+        const dog = await Race.findByPk(id);
+        if(!dog){
+            res.status(404).send("Can't delete");
+        } else {
+            await dog.destroy();
+            res.status(200).send("The Dog has been deleted");
+        }
+    } catch (error) {
+        next(error);
+    }
+})
+
 
 module.exports = router;
 

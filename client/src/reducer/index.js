@@ -1,11 +1,12 @@
-import { FETCH_RACE, FILTER_BY, FILTER_BY_ORIGIN, GET_TEMPERAMENTS, ORDER_RACE, POST_RACE, FILTER_RACE, SEARCH_RACE, ORDER_WEIGHT, FILTER_BY_TEMPERAMENTS, DOGS_BY_NAME_MESSAGE_ERROR} from "../actions/types";
+import { FETCH_RACE, DELETE_DOG, FILTER_BY, GET_TEMPERAMENTS, POST_RACE, FILTER_RACE, SEARCH_RACE, DOGS_BY_NAME_MESSAGE_ERROR, DELETE_FAV, ADD_FAV} from "../actions/types";
 
 const initialState = {
     races: [],
     allRacesFixed: [],
     temperaments: [],
     detail: [],
-    errorMessage: ''
+    errorMessage: '',
+    fav: []
 };
 
 export default function rootReducer (state = initialState, action){
@@ -22,7 +23,7 @@ export default function rootReducer (state = initialState, action){
                 races: action.payload,
                 errorMessage: ''
             }       
-            case DOGS_BY_NAME_MESSAGE_ERROR:
+            case DOGS_BY_NAME_MESSAGE_ERROR: // para que aparezca el componente Not Found
       return {
         ...state,
         errorMessage: 'Race not found',
@@ -49,6 +50,20 @@ export default function rootReducer (state = initialState, action){
             case POST_RACE:
                 return {
                     ...state
+                }
+            case DELETE_DOG:
+                return {
+                     ...state 
+                    };
+            case DELETE_FAV:
+                return {
+                    ...state,
+                    fav: state.fav.filter(dog => dog.id !== action.payload)
+                }
+            case ADD_FAV:
+                return {
+                    ...state,
+                    fav: [...state.fav, action.payload]
                 }
         default: 
             return state

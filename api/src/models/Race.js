@@ -26,13 +26,14 @@ module.exports = (sequelize) => {
       weight: {
         type: DataTypes.STRING,
         allowNull: false,
-        get() {
-  let weightGet = this.getDataValue('weight');
-  return weightGet + ' pounds';
-      }
+  //       get() {
+  // let weightGet = this.getDataValue('weight');
+  // return weightGet + ' Kgs';
+  //     }
     },
       lifeSpan: {
         type: DataTypes.STRING,
+        allowNull: false,
         get() {
   let nullAge = this.getDataValue('lifeSpan');
   return nullAge ? nullAge + ' years' : null;

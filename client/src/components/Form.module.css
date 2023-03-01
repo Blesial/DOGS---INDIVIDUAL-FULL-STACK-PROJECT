@@ -2,7 +2,7 @@
     padding: 0;
     box-sizing: border-box;
     font-size: 10%;
-    background: url('../assets/dogsss.jpg') ;
+    background: url('../assets/dogs.png.jpeg') ;
     background-size: cover;
     height: 120vh;
     justify-content: center;
@@ -23,7 +23,7 @@
 .container{
 
     backdrop-filter: blur(20px);
-    margin-bottom: 22%;
+    margin-bottom: 30%;
     margin-top: 24%;
     background: transparent;
     visibility: visible;

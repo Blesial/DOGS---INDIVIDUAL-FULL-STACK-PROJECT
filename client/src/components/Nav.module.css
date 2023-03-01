@@ -1,0 +1,139 @@
+.nav_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.nav {
+    background-color: var(--primary-color);
+    border-bottom: 4px solid rgb(26, 24, 24);
+    border-radius: 0;
+    margin-bottom: 0;
+    padding: 2rem 0;
+    z-index: 10;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    margin-bottom: 0;
+    padding: 2rem 0;
+    z-index: 10;
+    height: 40px;
+    width: 100%;
+    box-shadow: var(--box_shadow_create);
+}
+
+.logo_container {
+    display: flex;
+    margin-top: 1.1%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 0;
+    padding: 0;
+    position: relative;
+    z-index: 10;
+    height: 40px;
+}
+
+.logo_container img {
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+}
+
+
+.create_button {
+    color: var(--secondary-color);
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: var(--button_color);
+    border: var(--border_bottom_create);
+    box-shadow: var(--box_shadow_create);
+    cursor: pointer;
+    margin-bottom: 7%;
+}
+
+.create_button:active {
+    color: red;
+    background: var(--background_create);
+    box-shadow: var(--box_shadow_create_active);
+}
+
+.fav{
+    color: var(--secondary-color);
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: var(--button_color);
+    border: var(--border_bottom_create);
+    box-shadow: var(--box_shadow_create);
+    cursor: pointer;
+    margin-bottom: 13%;
+    margin-right: 30%;
+
+}
+.lupa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 10;
+    right: 300px;
+    cursor: pointer;
+}
+
+.lupa_img {
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+}
+
+@media (max-width: 1000px) {
+    .lupa {
+        right: 20%;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo_container img {
+        height: 45px;
+        width: 45px;
+    }
+
+    .lupa {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .navbar {
+        height: 30px;
+    }
+    .nav {
+        height: 30px;
+    }
+}

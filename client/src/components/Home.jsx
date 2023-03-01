@@ -5,18 +5,20 @@ import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { fetchRaces, getFilterBy, getTemperaments } from "../actions";
 import Race from "./race";
-import {Link} from 'react-router-dom';
 import Paginado from "./paginado";
 import dog from '/Users/blesial/Desktop/PI-Dogs-main/client/src/dog.png'
 import styles from './Home.module.css';
-import SearchBar from "./searchBar";
-import NotFound from './NotFound';
+ import NotFound from './NotFound';
+import Scroll from "./Scroll";
+import Footer from "./Footer";
+import Nav from "./Nav";
 
 
 export default function Home () {
-   const dispatch = useDispatch()
-   const store = useSelector(state => state)
-
+   const dispatch = useDispatch(); //para poder usar la action
+   const store = useSelector(state => state); // obtengo el estado actual del store 
+   const [charge, setCharge] = useState(false); // variable para saber si esta cargando
+  console.log(store)
       const [filter, setFilter] = useState({
      temperament: "All",
      origin: "all",
@@ -36,11 +38,14 @@ export default function Home () {
    }
 
    useEffect(()=>{ // corre cuando el componente se monta, o cuando cambia algun estado/variable que se indique en el array de dependencias. 
-      dispatch(fetchRaces())
+      setCharge(true);
+      setTimeout(() => {
+        setCharge(false);
+      }, 1500);
+    dispatch(fetchRaces())
       dispatch(getTemperaments())
  
-   }, [dispatch]); // ver si genera problemas meter el dispatch ahi . soluciona un error que me tira react 
-   // se lo llama array de dependencias. Si no ponemos el array de dependencias se monta y renderiza en loop 
+   }, [dispatch]); 
 
 
    function handleFilters (e) {
@@ -67,56 +72,54 @@ export default function Home () {
       <>
 
       <div>
-        <SearchBar/>
-               
-               <button className={styles.button}><Link style={{
-              padding: '0 10px',
-              textDecoration:'None',
-              color: 'white',
-          }} to='/add'>Create Race</Link></button>
+        <Nav setCurrentPage={setCurrentPage}/>
+          <Scroll/>
       </div>
+      <div className={styles.title}>
+          <h1>PI Dogs</h1>
+        </div>
         <div className={styles.acomoda}>
       <form type="submit" onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.order}>
+      <div className={styles.box}>
         <label htmlFor="order">
           <span>Order: </span>
         </label>
        <select
-         className={styles.input}
+         className={styles.select}
          id="order"
          name="order"
          value={filter.order}
          onChange={handleFilters}
        >
-         <option value="Ascending">Name (A - Z)</option>
-         <option value="Descending">Name (Z - A)</option>
-         <option value="Weight">Weight (Min - Max)</option>
+         <option className={styles.option}  value="Ascending">Name (A - Z)</option>
+         <option className={styles.option} value="Descending">Name (Z - A)</option>
+         <option className={styles.option} value="Weight">Weight (Min - Max)</option>
        </select>
      </div>
-              <div className={styles.origin}>
+              <div className={styles.box}>
              <label htmlFor="origin">
              <span>Origin: </span>
             </label>
            <select
-         className={styles.input}
+         className={styles.select}
          id="origin"
          name="origin"
          value={filter.origin}
          onChange={handleFilters}
        >
-         <option value="all">All</option>
-         <option value="api">Api</option>
-         <option value="db">Data base</option>
+         <option className={styles.option} value="all">All</option>
+         <option className={styles.option} value="api">Api</option>
+         <option className={styles.option} value="db">Data base</option>
        </select>
      </div>
 
 
-     <div className={styles.temperament}>
+     <div className={styles.box}>
           <label htmlFor="temperament">
             <span>Temperament: </span>
           </label>
           <select
-         className={styles.input}
+         className={styles.select}
          id="temperament"
          name="temperament"
          value={filter.temperament}
@@ -143,19 +146,22 @@ export default function Home () {
        </div>
        <div className={styles.body}>
        { 
-       store.errorMessage ? <div className={styles.notfound}><NotFound/></div>
-       :
-       currentRaces.map((race) => {
-       return (
-          
-          <div className={styles.container}>
-             <Link to={`/home/${race.id}`}>
-          <Race key={race.id} name={race.name} image={race.image ? race.image : <img alt='Wof' src={dog}/>} temperaments={race.temperaments} weight={race.weight}/>
-          </Link>
-          </div>
-       ) 
-       })}
+          charge ? ( <div> 
+<iframe title="FlyingDog"  className={styles.loading} src="https://giphy.com/embed/3o7abAHdYvZdBNnGZq" width="2000" height="600" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p>LOADING...</p>       </div>) 
+:
+
+          currentRaces.length ? currentRaces.map((race) => {
+            return (
+     
+              <div className={styles.container}>
+              <Race id={race.id} key={race.id} name={race.name} image={race.image ? race.image : <img alt='Wof' src={dog}/>} temperaments={race.temperaments} weight={race.weight}/>
+     </div>
+                   )  
+            }) :   <div className={styles.notfound}><NotFound/></div>
+                                  
+                  }
        </div>
+       <Footer/>
      </>
    )
 }

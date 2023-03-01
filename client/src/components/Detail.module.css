@@ -8,17 +8,20 @@
   border-radius: 0.4em;
   box-shadow: 0.1em 0.1em;
   margin-right: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 8%;
 
  }
-.body {
+
+ .body {
   height: 120%;
   width: 100%;
-  background: url('https://w0.peakpx.com/wallpaper/736/172/HD-wallpaper-golden-retriever-dog-is-standing-on-algae-covered-rock-in-blur-forest-background-dog.jpg') no-repeat ;
+  /* background: url('https://wallpapercave.com/dwp2x/wp9015641.jpg'); */
+  /* background: url('https://wallpapercave.com/dwp2x/wp9015368.jpg') 100% 60%; */
+  /* background: url('https://wallpapercave.com/dwp2x/wp4821782.jpg'); */
+  /* background: url('https://wallpapercave.com/dwp2x/wp9015554.jpg'); */
+  background: url('https://wallpapercave.com/dwp2x/wp9015508.jpg');
   background-size: cover;
 }
-
- 
 
 
 .button_top:hover {
@@ -29,6 +32,15 @@
   transform: translate(0.05em, 0.05em);
   box-shadow: 0.05em 0.05em;}
 
+  .container {
+    width: 100%;
+    min-height: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
 
 
@@ -45,11 +57,10 @@
     overflow: hidden;
   }
   .card {
-    margin-left: 1%;
-    margin-top: 0;
+    margin-right: 50%;
+    margin-top: 3%;
     margin-bottom: 2%;
     max-width: 35%;
-  
     transition: 1s ease-in-out;
     clip-path: polygon(30px 0%, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0% 30px);
     border-top-right-radius: 20px;
@@ -58,11 +69,7 @@
     align-content: center;
     
     background: url('https://cdn3.vectorstock.com/i/1000x1000/08/92/gold-vintage-greeting-card-on-a-black-background-vector-23400892.jpg') no-repeat 0% 1%;
-   /* background: url('https://cdn2.vectorstock.com/i/1000x1000/08/86/gold-vintage-greeting-card-on-a-black-background-vector-23400886.jpg') no-repeat 102%; */
 }
-
-
-/* https://img.freepik.com/premium-photo/golden-retriever-puppy-is-sitting-white-background-staring-something_128282-281.jpg */
 
   
   .info {
@@ -75,4 +82,36 @@
 
   }
 
+
+  .button_delete{
+    height: 5vh;
+    left: 38%;
+    
+    align-items: center;
+    justify-items: center;
+    display: inline-block;
+    justify-content: center;
+    position: absolute;
+    margin: 0rem;
+    cursor: pointer;
+    background-color: black;
+    border-radius: 50px;
+}
+
+.button_delete button {
+    background-color: transparent;
+    
+    border: none;
+    cursor: pointer;
+}
+
+.button_delete:active {
+    background: var(--background_create);
+    box-shadow: var(--box_shadow_create_active);
+}
   
+.imgg{
+  width: 39px;
+  height: 49px;
+  margin-bottom: 75%;
+}

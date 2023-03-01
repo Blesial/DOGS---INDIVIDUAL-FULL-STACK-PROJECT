@@ -1,11 +1,10 @@
 export const FETCH_RACE = 'FETCH_RACE';
 export const FILTER_RACE = 'FILTER_RACE';
-export const ORDER_RACE = 'ORDER_RACE';
 export const SEARCH_RACE = 'SEARCH_RACE';
-export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN';
 export const GET_TEMPERAMENTS = 'GET_TEMPERAMENTS';
 export const POST_RACE = 'POST_RACE';
-export const ORDER_WEIGHT = 'ORDER_WEIGHT';
-export const FILTER_BY_TEMPERAMENTS = 'FILTER_BY_TEMPERAMENTS';
 export const DOGS_BY_NAME_MESSAGE_ERROR = 'DOGS_BY_NAME_MESSAGE_ERROR';
 export const FILTER_BY = 'FILTER_BY';
+export const DELETE_DOG = 'DELETE_DOG';
+export const DELETE_FAV = 'DELETE_FAV';
+export const ADD_FAV = 'ADD_FAV';

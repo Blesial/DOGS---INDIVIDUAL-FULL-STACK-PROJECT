@@ -1,4 +1,4 @@
-import {FETCH_RACE, GET_TEMPERAMENTS,FILTER_BY, SEARCH_RACE, POST_RACE, FILTER_RACE, DOGS_BY_NAME_MESSAGE_ERROR} from './types';
+import {FETCH_RACE, DELETE_DOG, GET_TEMPERAMENTS,FILTER_BY, SEARCH_RACE, POST_RACE, FILTER_RACE, DOGS_BY_NAME_MESSAGE_ERROR, ADD_FAV, DELETE_FAV} from './types';
 import axios from 'axios';
 // ACTIONS CREATORS
 // Aca estamos utilizando redux thunk. Por eso usamos el dispatch dentro de la action creator.
@@ -120,6 +120,31 @@ export const postRace = (payload) => async (dispatch) => {
   }
 }
 
+export const deleteDog = (id) => {
+  return async function (dispatch) {
+      try {
+          await axios.delete(`http://localhost:3001/api/dogs/delete/${id}`);
+          return dispatch({
+              type: DELETE_DOG,
+      });
+      } catch (e) {
+          console.log(e);
+      };
+      }
+  };
+
+export const deleteFav = (payload) => {
+
+  return {
+    type: DELETE_FAV,
+    payload: payload.id
+  }
+}
 
 
-
+export const addFav =  (payload) => {
+  return {
+    type: ADD_FAV,
+    payload
+  }
+}

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postRace, getTemperaments, fetchRaces } from "../actions";
 import styles from './Form.module.css';
@@ -35,7 +35,7 @@ export default function Form () {
 
     const temperaments = useSelector(store => store.temperaments);
     
-    const history = useHistory();
+    const navigate = useNavigate();
     console.log(race.temperament)
     function handleChange (e) {
 
@@ -96,7 +96,7 @@ export default function Form () {
           });
           setErrors({});
           dispatch(fetchRaces())
-          history.push('/home');
+          navigate("/home");
           alert("Dog created successfully");
         } else {
           return;
