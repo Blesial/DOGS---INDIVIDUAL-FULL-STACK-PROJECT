@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'; // This package serves as the entry point to the DOM and server renderers for React.
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from 'react-redux';
+import {Provider} from 'react-redux'; // to provide de global store from redux to react app
 import store from './store';
 import {BrowserRouter} from 'react-router-dom'; // ahora app tiene la capacidad de definir rutas. 
 

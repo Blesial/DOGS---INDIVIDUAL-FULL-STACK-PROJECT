@@ -18,8 +18,8 @@ export default function Home () {
    const dispatch = useDispatch(); //para poder usar la action
    const store = useSelector(state => state); // obtengo el estado actual del store 
    const [charge, setCharge] = useState(false); // variable para saber si esta cargando
-  console.log(store)
-      const [filter, setFilter] = useState({
+
+   const [filter, setFilter] = useState({ // preseteo los valores de busqueda de esta forma. donde no existen filtrados y el orden es en ascendente
      temperament: "All",
      origin: "all",
      order: "Ascending",
@@ -45,7 +45,7 @@ export default function Home () {
     dispatch(fetchRaces())
       dispatch(getTemperaments())
  
-   }, [dispatch]); 
+   }, [dispatch]); //para que no se ejecute cada vez q se renderiza el componente
 
 
    function handleFilters (e) {
@@ -69,7 +69,7 @@ export default function Home () {
 
 
    return (
-      <>
+      <div className={styles.contain}>
 
       <div>
         <Nav setCurrentPage={setCurrentPage}/>
@@ -93,7 +93,8 @@ export default function Home () {
        >
          <option className={styles.option}  value="Ascending">Name (A - Z)</option>
          <option className={styles.option} value="Descending">Name (Z - A)</option>
-         <option className={styles.option} value="Weight">Weight (Min - Max)</option>
+         <option className={styles.option} value="WeightAsc">Weight (Min - Max)</option>
+         <option className={styles.option} value="WeightDesc">Weight (Max - Min)</option>
        </select>
      </div>
               <div className={styles.box}>
@@ -153,16 +154,14 @@ export default function Home () {
           currentRaces.length ? currentRaces.map((race) => {
             return (
      
-              <div className={styles.container}>
               <Race id={race.id} key={race.id} name={race.name} image={race.image ? race.image : <img alt='Wof' src={dog}/>} temperaments={race.temperaments} weight={race.weight}/>
-     </div>
                    )  
             }) :   <div className={styles.notfound}><NotFound/></div>
                                   
                   }
        </div>
        <Footer/>
-     </>
+     </div>
    )
 }
 

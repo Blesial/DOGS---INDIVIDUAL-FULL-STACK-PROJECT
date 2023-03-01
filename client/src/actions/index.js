@@ -66,7 +66,7 @@ export const getFilterBy = ({temperament, origin, order}) => {
               return -1;
             }
           })
-        : order === "Weight"
+        : order === "WeightAsc"
         ? dataFilter = dataFilter.sort((a, b) => {
             if (a.weightMin > b.weightMin) {
               return 1;
@@ -75,7 +75,15 @@ export const getFilterBy = ({temperament, origin, order}) => {
               return -1;
             }
           })
-        : dataFilter = dataFilter;
+        : order === "WeightDesc" 
+        ? dataFilter = dataFilter.sort((a, b) => {
+          if (a.weightMin > b.weightMin) {
+            return -1;
+          }
+          if (a.weightMin < b.weightMin) {
+            return 1;
+          }
+        }) : dataFilter = dataFilter;
 
       dispatch({ type: FILTER_BY, payload: dataFilter });
     });

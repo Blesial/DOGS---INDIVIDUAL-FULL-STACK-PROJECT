@@ -2,9 +2,9 @@ import React from "react";
 import styles from './paginado.module.css';
 
 export default function Paginado ({racePerPage, racesStore, paginado}) {
-    const pagesNumber = [];
+    const pagesNumber = []; // array guarda los numeros de paginas que van a existir en total. 
     
-    for (let i = 1; i <= Math.ceil(racesStore/racePerPage); i++) {
+    for (let i = 1; i <= Math.ceil(racesStore/racePerPage); i++) { // ceil redondea hacia arriba 
         pagesNumber.push(i);
     }
 

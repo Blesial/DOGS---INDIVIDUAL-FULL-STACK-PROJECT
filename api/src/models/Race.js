@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
       height: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 0.50,
+        defaultValue: '0.50',
         get() {
           let heightGet = this.getDataValue('height');
           return heightGet + ' inches at the shoulder'

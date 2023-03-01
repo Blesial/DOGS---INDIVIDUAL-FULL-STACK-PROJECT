@@ -57,8 +57,7 @@ let apiRaces = await axios.get(apiLink);
     const weightArray = +race.weight.metric > 0
       ? +race.weight.metric
       : race.weight.metric.split(" - ").length > 1
-      ? race.weight.metric.split(" - ")
-      : 0;
+      ? race.weight.metric.split(" - ") : 0;
     return {
       id: race.id,
       name: race.name,
@@ -117,7 +116,7 @@ router.get('/:id', async (req, res, next) => {
        }
      });
      race.dataValues.temperaments = race.dataValues?.temperaments?.map(temp => temp.name);
-        //  let a = race.dataValues.temperaments.map(temp => temp.name) // este codigo es pa convertir el array de temperaments a que este igual formato q los q traigo de la api
+        //  este codigo es para convertir el array de temperaments a que este igual formato q los q traigo de la api
      return res.send(race.dataValues);
 
    } else { // es de la api 
@@ -143,10 +142,9 @@ router.get('/:id', async (req, res, next) => {
 })
 
 
-router.post('/', async (req, res, next) => { // ACA SE CARGA EN LA BASE DE DATOS EL PERRO. DE LA FORMA Q SE NOS CANTE
+router.post('/', async (req, res, next) => { // ACA SE CARGA EN LA BASE DE DATOS EL PERRO
     const {name, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, createdInDataBase, temperaments} = req.body;
     try {
-      console.log(temperaments)
       const validator = validate(req.body);
       if (Object.keys(validator).length > 0) {
         return res.status(400).json(validator);
@@ -193,5 +191,4 @@ router.post('/', async (req, res, next) => { // ACA SE CARGA EN LA BASE DE DATOS
 
 module.exports = router;
 
-// ver de hacer validaciones tambien aca en el back. no solo en el front 
 

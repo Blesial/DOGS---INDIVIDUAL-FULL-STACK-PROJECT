@@ -1,22 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
 
-body {
 
- background-repeat: no-repeat;
- width: 100vw;
- height: 100vh;
+
+.landingPage{
+  overflow-y: hidden;
+  height: 100vh;
+  background: url('../assets/dogs.png.jpeg') ;
+  background-size: cover;
   margin: 0;
   padding: 0;
-  background-image: url('../assets/dogsss.jpg');
-  background-size: cover;
-  color: white;
-  text-align: center;
-  font-size: 40px;
-  font-family: 'Yusei Magic', sans-serif;
-  height: 100vh;
-}   
-
-
+}
 
 .btn, .btn[disabled="false"]{
   font-family: 'Yusei Magic', sans-serif;

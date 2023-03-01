@@ -10,13 +10,26 @@
 html {
   cursor: url(./icons8-dog-64.png), auto;
   font-size: 17px;
-  line-height: 1.496; /* 1 */
+  line-height: 1.496;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2QAS4lXfKcKYYiZ0c_qBFyzpY0IiyAYsATA&usqp=CAU');
+
+
+   /* 1 */
 }
 /* VER SI PONER LO DE ACA ARRIBA. XQ ROMPIO UN POCO TODO. */
 
-body {
-  margin: 0;
-}
+
+  body {
+
+
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Yusei Magic', sans-serif;
+  } 
+
 /* whipes the white at the top */
 main {
   display: block;
@@ -328,7 +341,7 @@ hr {
   
   html {
     /* 1rem = 10px */
-    font-size: 62.5%;
+    /* font-size: 62.5%; */
     /* Color variables */
     --primary-color: #32353c  ;
     --secondary-color: #e8e8e8;

@@ -6,21 +6,20 @@ import { filterRaces, deleteFav } from "../actions";
 import styles from './Favorites.module.css'
 function Favorites() {
     const { fav } = useSelector((state) => state);
-    console.log(fav)
     const dispatch = useDispatch();
 
-    let favId = fav.map((dogfav) => {
+    let favId = fav?.map((dogfav) => { // me traigo todos los id's del estado 
         return dogfav.id;
     })
 
-    const active = fav.find((dogfav) => dogfav.id === favId);
 
     const handleDeleteFav = (data) => {
-        dispatch(deleteFav(data.id));
+        dispatch(deleteFav(data));
     }
-    
+    const active = fav.find((dogfav) => dogfav.id === favId);
+
     return (
-        <div>
+        <div className={styles.all}>
                 <div className={styles.favContainer}>
                     {
                         fav.length ? (
@@ -30,17 +29,17 @@ function Favorites() {
                                     <div className={styles.card_container}>
                                         <div className={styles.name}>
                                             <h1>{dogfav.name}</h1>
+
                                         </div>
                                         <Link to={`/home/${dogfav.id}`}>
                                             <img src={dogfav.image} alt={dogfav.name} className={styles.image} onClick={() => dispatch(filterRaces(dogfav.id))}/> {/* Envio el id al reducer para crear la seccion de Description */}
                                         </Link>
                                         <div className={styles.container__info}>
-                                            <p>Weight: Min: {dogfav.weightMin}kg - Max: {dogfav.weightMax}kg</p>
                                         </div>
                                         <div className={styles.temperament}>
                                             {
                                                 dogfav.temperaments.split(",").map((temps, index) => { // recorro el array de temperamentos, index es el indice del array
-                                                    if( index < 6 ) {
+                                                    if( index < 5 ) {
                                                         return <p key={index}>{temps}</p> //solo muestro 6 temperamentos
                                                     } else {
                                                         return
@@ -50,7 +49,7 @@ function Favorites() {
                                         </div>
                                         <button 
                                             onClick={() => handleDeleteFav(dogfav)}
-                                            className={active ? styles.fav : styles.favActive}
+                                            className={active ? styles.fav :styles.favActive}
                                         >
                                         +
                                         </button>

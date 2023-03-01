@@ -1,3 +1,7 @@
+.all{
+}
+
+
 .card {
     width: 340px;
     height: 400px;
@@ -11,6 +15,7 @@
     background: var(--background_card);
     border-radius: 12px;
     box-shadow: var(--box_shadow_card);
+    
 }
 
 
@@ -22,6 +27,7 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+    
 }
 
 .name {
@@ -102,26 +108,16 @@
     height: 100vh;
 }
 
-.fav,
 .favActive {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    margin: 0.7rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: transparent;
-    background-color: transparent;
+
+
     border: none;
     cursor: pointer;
-    width: 2.5rem;
-    height: 2.5rem;
-}
-
-@supports (filter: invert(100%)) {
-  .favActive {
-    filter: invert(20%) sepia(100%) saturate(4000%);
-  }
+    width: 4rem;
+    height: 4rem;
+    color: red;
+    background: url("../assets/corazon.svg") 500%;
+    background-size: cover;
 }
 
 @media (max-width: 768px) {

@@ -25,7 +25,6 @@ export default function Form () {
         temperament: '',
         temperaments: []
     });
-    console.log(race.temperaments)
     const [errors, setErrors] = useState({});
 
 
@@ -36,7 +35,7 @@ export default function Form () {
     const temperaments = useSelector(store => store.temperaments);
     
     const navigate = useNavigate();
-    console.log(race.temperament)
+
     function handleChange (e) {
 
         setRace({                      
@@ -44,7 +43,7 @@ export default function Form () {
             [e.target.name]: e.target.value
         })
 
-        setErrors(validate({
+        setErrors(validate({ // Hago asi para evitar el delay al momento de escribir en los inputs del form 
           ...race,
           [e.target.name]: e.target.value
         }))
@@ -78,7 +77,7 @@ export default function Form () {
       };
       
       function handleSubmit (e) {
-        e.preventDefault();
+        e.preventDefault(); // evitar la recarga automatica de la pag . 
         const error = validate(race);
         setErrors(error);
         if (Object.keys(errors).length === 0) {

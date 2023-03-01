@@ -16,6 +16,12 @@
     letter-spacing: 2px;
     transition: all .5s ease;
   }
+  .contain{
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2QAS4lXfKcKYYiZ0c_qBFyzpY0IiyAYsATA&usqp=CAU');
+/* 
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1Sr10AQLLZ5jkveSydfA5G9jSLwiaFh4OXECAWlttfmA_UvownSDiAyoEZy0UYHS3IlE&usqp=CAU');
+    background-size: cover; */
+  }
   
   button:active {
     transform: scale(.9);
@@ -36,16 +42,10 @@
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2QAS4lXfKcKYYiZ0c_qBFyzpY0IiyAYsATA&usqp=CAU');
+  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1Sr10AQLLZ5jkveSydfA5G9jSLwiaFh4OXECAWlttfmA_UvownSDiAyoEZy0UYHS3IlE&usqp=CAU');
+  background-size: cover; */
 
-}
-
-.container{
-background-color: black; 
- width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
 }
 
 .notfound{
@@ -54,24 +54,12 @@ background-color: black;
   height: 100vh;
 }
 
-html {
-background-color: black;
-  font-size: 17px;
-  line-height: 1.496; /* 1 */
-}
 
 .input {
   border-radius: 10px;
 }
 
-/* .search {
-  grid-area: search;
-  width: 50px;
-  height: 50px;
-  border-radius: 999999px;
-  justify-self: center;
-  align-self: center;
-} */
+
 
 .search {
   display: flex;
@@ -124,20 +112,23 @@ background-color: black;
   margin-top: 3%;
 }
 
+
 .select {
-  background-color: black;
-  color: white;
-  padding: 10px;
   width: 200px;
-  border: none;
-  font-size: 18px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-  -webkit-appearance: button;
-  appearance: button;
+  height: 40px;
+  border: 2px solid transparent;
+  border-radius: 8px;
   outline: none;
-  border-radius: 5px;
+  background-color: black;
+  box-shadow: var(--box_shadow_create);
+  color: var(--secondary-color);
 }
 
+
+
+.select:focus {
+  color: var(--select_focus);
+}
 
 
 .option{
@@ -146,112 +137,12 @@ background-color: black;
 }
 
 
-/* .container {
-  width: 100%;
-  min-height: 800px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: var(--primary-color);
-}
+
 
 .title {
     align-items: center;
     margin-top: 4rem;
-}
-
-.filter{
-  display: flex;
-  gap: 5rem;
-}
-
-.select {
-  width: 200px;
-  height: 40px;
-  line-height: 28px;
-  padding: 0 1rem;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  outline: none;
-  background-color: var(--background_search);
-  box-shadow: var(--box_shadow_create);
-  color: var(--secondary-color);
-  margin-bottom: 3rem;
+    
 }
 
 
-
-.select:focus {
-  color: lightblue;
-}
-
-.paginated {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-}
-
-.paginated li {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  width: 40px;
-  cursor: pointer;
-  box-shadow: var(--box_shadow_paginated);
-  border: var(--border_paginated);
-  background-color: var(--background_paginated);
-  color: var(--secondary-color);
-}
-
-.paginated .active {
-  box-shadow: var(--box_shadow_paginated_active);
-  border: var(--border_paginated);
-  background: var(--background_paginated_active);
-  color: rgb(0, 183, 255);
-}
-
-.paginated .activeMQ {
-  box-shadow: var(--box_shadow_paginated_active);
-  border: var(--border_paginated);
-  background: var(--background_paginated_active);
-  color: rgb(0, 183, 255);
-  display: none;
-}
-
-
-.paginated p {
-  font-size: 1.3rem;
-  font-weight: bold;
-}
-
-.paginated button{
-  background-color: transparent;
-  border: none;
-  display: none;
-}
-
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem auto;
-  width: 100%;
-  max-width: 1200px;
-  gap: 20px;
-}
-
-.noDogs{
-  color: var(--secondary-color);
-  text-align: center;
-} */

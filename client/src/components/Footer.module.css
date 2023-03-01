@@ -1,14 +1,23 @@
 .footer {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThqpQqQQIH_jnaIHnMXSo3-ZO4k88DZNBung&usqp=CAU');
+    color: var(--secondary-color);
+    box-shadow: var(--box_shadow_search);
     border-top: 3px solid hsla(0, 0%, 0%, 0.933);
     width: 100%;
     color: black;
     font-weight: bolder;
     z-index: 20;
     top: 470%;
-    height: 5%;
+    height: 21%;
+ 
     position: absolute;
     background-color: transparent;
+    color: var(--secondary-color);
+    z-index: 20;
+
+
 }
+
 
 .site_footer {
     display: flex;

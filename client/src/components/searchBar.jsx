@@ -21,7 +21,7 @@ export default function SearchBar ({setCurrentPage}) {
     return (
         // Formulario Controlado: Que los elementos del formulario esten gestionados por el estado del componente
         <div className={styles.group}> 
-                <input type='text' placeholder="Search Dog..." onChange={(e)=> {
+                <input className={styles.input} type='text' placeholder="Search Dog..." onChange={(e)=> {
                     setSearch(e.target.value)
                     handleInputChange(e.target.value)
                 }} value={search}></input>
